@@ -31,6 +31,21 @@
         <activity android:name=".PasswordResetActivity"></activity>
         <activity android:name=".MemberInitActivity"></activity>
         <activity android:name=".FriendListActivity"></activity>
+        <activity
+            android:name=".scheDialog"
+            android:exported="false" />
+        <activity
+            android:name=".MyScheMonth"
+            android:exported="false" />
+        <activity
+            android:name=".MyScheWeek"
+            android:exported="false" />
+        <activity
+            android:name=".MyScheDay"
+            android:exported="false" />
+        <activity
+            android:name=".MyScheFirst"
+            android:exported="false" />
 
     </application>
 
