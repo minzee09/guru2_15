@@ -3,6 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/drawable-v24/shape_for_circle_button.xml" value="0.1315" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_friend.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_login.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_main.xml" value="0.2210144927536232" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_member_init.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_my_sche_day.xml" value="0.1" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_my_sche_first.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_my_sche_week.xml" value="0.25364583333333335" />
         <entry key="..\:/guru2_15/app/src/main/res/layout/activity_friend_list.xml" value="0.2" />
         <entry key="..\:/guru2_15/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/guru2_15/app/src/main/res/layout/activity_main.xml" value="0.22146739130434784" />
