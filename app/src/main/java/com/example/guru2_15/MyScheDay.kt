@@ -70,7 +70,8 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener {
                     startActivity(intent)
                 }
                 R.id.addScheFab -> {
-                    //일정추가 창 실행하기기
+                    var intent = Intent(this, MainActivity2::class.java)
+                    startActivity(intent)
                }
             }
         }

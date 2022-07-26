@@ -1,5 +1,6 @@
 package com.example.guru2_15
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -15,6 +16,8 @@ class MyScheFirst : AppCompatActivity() {
         addScheBtn = findViewById(R.id.addScheBtn)
 
         addScheBtn.setOnClickListener {
+            var intent = Intent(this, MainActivity2::class.java)
+            startActivity(intent)
 
         }
     }
