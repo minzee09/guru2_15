@@ -39,6 +39,22 @@
         <activity android:name=".MemberInitActivity" />
         <activity android:name=".FriendListActivity" />
         <activity android:name=".HomeActivity" />
+        <activity
+            android:name=".scheDialog"
+            android:exported="false" />
+        <activity
+            android:name=".MyScheMonth"
+            android:exported="false" />
+        <activity
+            android:name=".MyScheWeek"
+            android:exported="false" />
+        <activity
+            android:name=".MyScheDay"
+            android:exported="false" />
+        <activity
+            android:name=".MyScheFirst"
+            android:exported="false" />
+
     </application>
 
 </manifest>
