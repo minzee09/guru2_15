@@ -46,6 +46,8 @@ dependencies {
 
     //RecycleView 설정
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    //원형그래프
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
