@@ -8,11 +8,14 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private var mAuth: FirebaseAuth? = null
+    private var mDatabaseRef : DatabaseReference? = null //실시간데베
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +23,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference()
 
         val loginBtn: Button = findViewById(R.id.loginButton)
         val goToSignUpBtn: Button = findViewById(R.id.gotoSignUpButton)

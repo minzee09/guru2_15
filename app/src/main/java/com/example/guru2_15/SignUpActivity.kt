@@ -8,11 +8,15 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
     private var mAuth: FirebaseAuth? = null
+    private var mDatabaseRef : DatabaseReference? = null //실시간데베
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +24,7 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("guru2_15")
 
         val signUpBtn: Button = findViewById(R.id.signUpButton)
 
@@ -45,10 +50,20 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
         if(email.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty()) {
             // 비번하고 비번 확인이 같을때 회원가입 실행
             if (password.equals(passwordCheck)) {
-                mAuth!!.createUserWithEmailAndPassword(email, password)
+                mAuth!!.createUserWithEmailAndPassword(email, password) //파이어베이스유저등록
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) { //회원가입이 됐을 때
+                            var firebaseUser : FirebaseUser?=null
+                            firebaseUser = mAuth!!.currentUser
                             val user = mAuth!!.currentUser
+                            var account : UserAccount?=null
+                            account!!.email = firebaseUser!!.email.toString()
+                            account!!.password = password
+                            account!!.idToken = firebaseUser!!.uid
+
+                            //setValue : database에 insert하기
+                            mDatabaseRef!!.child("UserAccount").child(firebaseUser.uid).setValue(account)
+
                             startActivity(Intent(this,MemberInitActivity::class.java))
                         } else {
                             if (task.exception != null) {
