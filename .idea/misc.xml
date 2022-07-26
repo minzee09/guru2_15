@@ -3,17 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_execute.xml" value="0.13858695652173914" />
-        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_login.xml" value="0.13179347826086957" />
-        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_main2.xml" value="0.264" />
-        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_member_init.xml" value="0.13858695652173914" />
-        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_password_reset.xml" value="0.13858695652173914" />
-        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_result.xml" value="0.13858695652173914" />
-        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_signup.xml" value="0.13858695652173914" />
-        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/friend_list_item.xml" value="0.13858695652173914" />
+        <entry key="..\:/Users/user/Guru/guru2_15/app/src/main/res/layout/activity_execute.xml" value="0.2105978260869565" />
+        <entry key="..\:/Users/user/Guru/guru2_15/app/src/main/res/layout/activity_friend.xml" value="0.358695652173913" />
         <entry key="..\:/Users/user/Guru/guru2_15/app/src/main/res/layout/activity_home.xml" value="0.34739583333333335" />
+        <entry key="..\:/Users/user/Guru/guru2_15/app/src/main/res/layout/activity_login.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/user/Guru/guru2_15/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/Users/user/Guru/guru2_15/app/src/main/res/layout/activity_main2.xml" value="0.34739583333333335" />
+        <entry key="..\:/Users/user/Guru/guru2_15/app/src/main/res/layout/activity_member_init.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/user/Guru/guru2_15/app/src/main/res/layout/activity_password_reset.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/user/Guru/guru2_15/app/src/main/res/layout/activity_result.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/user/Guru/guru2_15/app/src/main/res/layout/activity_signup.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/user/Guru/guru2_15/app/src/main/res/layout/friend_list_item.xml" value="0.358695652173913" />
         <entry key="..\:/guru2_15/app/src/main/res/layout/activity_friend_list.xml" value="0.2" />
         <entry key="..\:/guru2_15/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/guru2_15/app/src/main/res/layout/activity_main.xml" value="0.22146739130434784" />

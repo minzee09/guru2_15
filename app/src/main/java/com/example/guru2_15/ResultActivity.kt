@@ -26,7 +26,7 @@ class ResultActivity : AppCompatActivity(){
 
 //        val secondintent = intent
 //
-//        if(secondintent.hasExtra("stYear"))
+//        if(.hasExtra("stYear"))
 //        {
 //            stYear.text = secondintent.getStringExtra("stYear")
 //        }
