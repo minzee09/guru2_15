@@ -1,34 +1,21 @@
 package com.example.guru2_15
 
-import android.annotation.SuppressLint
-import android.content.DialogInterface
 import android.content.Intent
-import java.io.FileInputStream
-import java.io.FileOutputStream
 
-import android.view.View
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.CalendarView
-import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 
-class MyScheMonth : AppCompatActivity() {
+class MyScheMonth : AppCompatActivity(),View.OnClickListener  {
     var userID: String = "userID"
-    lateinit var fname: String
-    lateinit var str: String
     lateinit var calendarView: CalendarView
-    lateinit var updateBtn: Button
-    lateinit var deleteBtn:Button
-    lateinit var saveBtn:Button
-    lateinit var diaryTextView: TextView
-    lateinit var diaryContent:TextView
-    lateinit var contextEditText: EditText
-    lateinit var testBtn: Button
-
     lateinit var addScheFab : Button
+    lateinit var monthBtn : Button
+    lateinit var weekBtn : Button
+    lateinit var dayBtn : Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,44 +24,18 @@ class MyScheMonth : AppCompatActivity() {
 
         // UI값 생성
         calendarView=findViewById(R.id.calendarView)
-        diaryTextView=findViewById(R.id.diaryTextView)
-        saveBtn=findViewById(R.id.saveBtn)
-        deleteBtn=findViewById(R.id.deleteBtn)
-        updateBtn=findViewById(R.id.updateBtn)
-        diaryContent=findViewById(R.id.diaryContent)
-        contextEditText=findViewById(R.id.contextEditText)
-
-        testBtn=findViewById(R.id.testBtn)
         addScheFab = findViewById(R.id.addScheFab)
+        monthBtn = findViewById(R.id.monthBtn)
+        weekBtn = findViewById(R.id.weekBtn)
+        dayBtn = findViewById(R.id.dayBtn)
 
+        monthBtn.setOnClickListener(this)
+        weekBtn.setOnClickListener(this)
+        dayBtn.setOnClickListener(this)
+        addScheFab.setOnClickListener(this)
 
-        testBtn.setOnClickListener{
-            val dialog = scheDialog(this)
-            dialog.showDialog()
-            dialog.setOnClickListener(object : scheDialog.OnDialogClickListener{
-                override fun onClicked(name: String)
-                {
-
-                }
-            })
-        }
-
-        addScheFab.setOnClickListener {
-            var intent = Intent(this, MainActivity2::class.java)
-            startActivity(intent)
-        }
 
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            diaryTextView.visibility = View.VISIBLE
-            saveBtn.visibility = View.VISIBLE
-            contextEditText.visibility = View.VISIBLE
-            diaryContent.visibility = View.INVISIBLE
-            updateBtn.visibility = View.INVISIBLE
-            deleteBtn.visibility = View.INVISIBLE
-            diaryTextView.text = String.format("%d / %d / %d", year, month + 1, dayOfMonth)
-            contextEditText.setText("")
-            checkDay(year, month, dayOfMonth, userID)
-
             val dialog = scheDialog(this)
             dialog.showDialog()
             dialog.setOnClickListener(object : scheDialog.OnDialogClickListener{
@@ -85,94 +46,31 @@ class MyScheMonth : AppCompatActivity() {
             })
         }
 
-        saveBtn.setOnClickListener {
-            saveDiary(fname)
-            contextEditText.visibility = View.INVISIBLE
-            saveBtn.visibility = View.INVISIBLE
-            updateBtn.visibility = View.VISIBLE
-            deleteBtn.visibility = View.VISIBLE
-            str = contextEditText.text.toString()
-            diaryContent.text = str
-            diaryContent.visibility = View.VISIBLE
-        }
     }
 
-    // 달력 내용 조회, 수정
-    fun checkDay(cYear: Int, cMonth: Int, cDay: Int, userID: String) {
-        //저장할 파일 이름설정
-        fname = "" + userID + cYear + "-" + (cMonth + 1) + "" + "-" + cDay + ".txt"
-
-        var fileInputStream: FileInputStream
-        try {
-            fileInputStream = openFileInput(fname)
-            val fileData = ByteArray(fileInputStream.available())
-            fileInputStream.read(fileData)
-            fileInputStream.close()
-            str = String(fileData)
-            contextEditText.visibility = View.INVISIBLE
-            diaryContent.visibility = View.VISIBLE
-            diaryContent.text = str
-            saveBtn.visibility = View.INVISIBLE
-            updateBtn.visibility = View.VISIBLE
-            deleteBtn.visibility = View.VISIBLE
-            updateBtn.setOnClickListener {
-                contextEditText.visibility = View.VISIBLE
-                diaryContent.visibility = View.INVISIBLE
-                contextEditText.setText(str)
-                saveBtn.visibility = View.VISIBLE
-                updateBtn.visibility = View.INVISIBLE
-                deleteBtn.visibility = View.INVISIBLE
-                diaryContent.text = contextEditText.text
+    override fun onClick(view: View?){
+        if(view!=null){
+            when(view.id){
+                R.id.monthBtn -> {
+                    var intent = Intent(this, MyScheMonth::class.java)
+                    startActivity(intent)
+                }
+                R.id.weekBtn -> {
+                    var intent = Intent(this, MyScheWeek::class.java)
+                    startActivity(intent)
+                }
+                R.id.dayBtn -> {
+                    var intent = Intent(this, MyScheDay::class.java)
+                    startActivity(intent)
+                }
+                R.id.addScheFab -> {
+                    var intent = Intent(this, MainActivity2::class.java)
+                    startActivity(intent)
+                }
             }
-            deleteBtn.setOnClickListener {
-                diaryContent.visibility = View.INVISIBLE
-                updateBtn.visibility = View.INVISIBLE
-                deleteBtn.visibility = View.INVISIBLE
-                contextEditText.setText("")
-                contextEditText.visibility = View.VISIBLE
-                saveBtn.visibility = View.VISIBLE
-                removeDiary(fname)
-            }
-            if (diaryContent.text == null) {
-                diaryContent.visibility = View.INVISIBLE
-                updateBtn.visibility = View.INVISIBLE
-                deleteBtn.visibility = View.INVISIBLE
-                diaryTextView.visibility = View.VISIBLE
-                saveBtn.visibility = View.VISIBLE
-                contextEditText.visibility = View.VISIBLE
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
     }
 
 
-    // 달력 내용 제거
-    @SuppressLint("WrongConstant")
-    fun removeDiary(readDay: String?) {
-        var fileOutputStream: FileOutputStream
-        try {
-            fileOutputStream = openFileOutput(readDay, MODE_NO_LOCALIZED_COLLATORS)
-            val content = ""
-            fileOutputStream.write(content.toByteArray())
-            fileOutputStream.close()
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
-        }
-    }
 
-
-    // 달력 내용 추가
-    @SuppressLint("WrongConstant")
-    fun saveDiary(readDay: String?) {
-        var fileOutputStream: FileOutputStream
-        try {
-            fileOutputStream = openFileOutput(readDay, MODE_NO_LOCALIZED_COLLATORS)
-            val content = contextEditText.text.toString()
-            fileOutputStream.write(content.toByteArray())
-            fileOutputStream.close()
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
-        }
-    }
 }
