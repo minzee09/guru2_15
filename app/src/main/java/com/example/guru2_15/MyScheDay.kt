@@ -37,8 +37,13 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener {
         addScheFab.setOnClickListener(this)
 
         pieChart = findViewById(R.id.chart)
-        var pieDataSet = PieDataSet(data1(),"좋음 싫음 투표")
+        var pieDataSet = PieDataSet(data1(),"하루 일정")
         pieDataSet.setColors(arrayColor)
+        pieChart.setDrawEntryLabels(false) //차트에글자표시여부
+        pieChart.setUsePercentValues(false)//퍼센트표시여부
+        pieChart.isDrawHoleEnabled = false
+        pieChart.transparentCircleRadius = 61f
+
         var pieData = PieData(pieDataSet)
         pieChart.setData(pieData)
         pieChart.invalidate()
@@ -48,9 +53,9 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener {
     fun data1() : ArrayList<PieEntry>{
         var datavalue = ArrayList<PieEntry>()
 
-        datavalue.add(PieEntry(30.0f,"무응답"))
-        datavalue.add(PieEntry(50.0f,"좋음"))
-        datavalue.add(PieEntry(20.0f,"싫음"))
+        datavalue.add(PieEntry(30.0f,"전공 수업"))
+        datavalue.add(PieEntry(50.0f,"과제"))
+        datavalue.add(PieEntry(20.0f,"운동"))
 
         return datavalue
     }

@@ -56,13 +56,13 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                             var firebaseUser : FirebaseUser?=null
                             firebaseUser = mAuth!!.currentUser
                             val user = mAuth!!.currentUser
-                            var account : UserAccount?=null
-                            account!!.email = firebaseUser!!.email.toString()
-                            account!!.password = password
-                            account!!.idToken = firebaseUser!!.uid
+                            var account = UserAccount("","","")
+                            account.email = user?.email.toString()
+                            account.password = password
+                            account.idToken = user!!.uid
 
                             //setValue : database에 insert하기
-                            mDatabaseRef!!.child("UserAccount").child(firebaseUser.uid).setValue(account)
+                            mDatabaseRef!!.child("UserAccount").child(user.uid).setValue(account)
 
                             startActivity(Intent(this,MemberInitActivity::class.java))
                         } else {
