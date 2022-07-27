@@ -3,17 +3,17 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/home"
-            android:icon="@drawable/ic_account"
+            android:icon="@drawable/ic_menu"
             android:title="홈 화면" />
 
         <item
             android:id="@+id/make"
-            android:icon="@drawable/ic_account"
+            android:icon="@drawable/ic_menu"
             android:title="약속 잡기" />
 
         <item
             android:id="@+id/friend"
-            android:icon="@drawable/ic_account"
+            android:icon="@drawable/ic_menu"
             android:title="친구 목록" />
 
     </group>
@@ -22,22 +22,22 @@
         <item
             android:id="@+id/email1"
             android:icon="@drawable/ic_account"
-            android:title="iamkys0417@gmail.com"/>
+            android:title="김민지"/>
 
         <item
             android:id="@+id/email2"
             android:icon="@drawable/ic_account"
-            android:title="iamkys0417@gmail.com"/>
+            android:title="김윤수"/>
 
         <item
             android:id="@+id/email3"
             android:icon="@drawable/ic_account"
-            android:title="iamkys0417@gmail.com"/>
+            android:title="김현진"/>
 
         <item
             android:id="@+id/email4"
             android:icon="@drawable/ic_account"
-            android:title="iamkys0417@gmail.com"/>
+            android:title="박현진"/>
 
     </group>
 </menu>
