@@ -8,33 +8,30 @@
         <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_main2.xml" value="0.264" />
         <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_member_init.xml" value="0.13858695652173914" />
+        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_navigation_main.xml" value="0.1" />
         <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_password_reset.xml" value="0.13858695652173914" />
         <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_result.xml" value="0.13858695652173914" />
         <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_signup.xml" value="0.13858695652173914" />
         <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/friend_list_item.xml" value="0.13858695652173914" />
+        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/main_naviheader.xml" value="0.12158054711246201" />
+        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/menu/menu_navigationmenu.xml" value="0.24512820512820513" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/drawable-v24/shape_for_circle_button.xml" value="0.1315" />
         <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_execute.xml" value="0.13854166666666667" />
-        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_friend.xml" value="0.13854166666666667" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_friend.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_home.xml" value="0.13854166666666667" />
-        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_login.xml" value="0.1421875" />
-        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_login.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_main.xml" value="0.2210144927536232" />
         <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_main2.xml" value="0.14270833333333333" />
-        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_member_init.xml" value="0.13854166666666667" />
-        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_my_sche_first.xml" value="0.13854166666666667" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_member_init.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_my_sche_day.xml" value="0.1" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_my_sche_first.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_my_sche_month.xml" value="0.13854166666666667" />
-        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_my_sche_week.xml" value="0.14270833333333333" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_my_sche_week.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_password_reset.xml" value="0.13854166666666667" />
         <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_result.xml" value="0.13854166666666667" />
         <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_signup.xml" value="0.14270833333333333" />
         <entry key="..\:/Users/user/Guru/guru2_15/app/src/main/res/layout/activity_home.xml" value="0.34739583333333335" />
         <entry key="..\:/Users/user/Guru/guru2_15/app/src/main/res/layout/activity_main2.xml" value="0.34739583333333335" />
-        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/drawable-v24/shape_for_circle_button.xml" value="0.1315" />
-        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_friend.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_login.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_main.xml" value="0.2210144927536232" />
-        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_member_init.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_my_sche_day.xml" value="0.1" />
-        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_my_sche_first.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_my_sche_week.xml" value="0.25364583333333335" />
         <entry key="..\:/guru2_15/app/src/main/res/layout/activity_friend_list.xml" value="0.2" />
         <entry key="..\:/guru2_15/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/guru2_15/app/src/main/res/layout/activity_main.xml" value="0.22146739130434784" />

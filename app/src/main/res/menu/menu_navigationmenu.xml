@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_account"
+            android:title="홈 화면" />
+
+        <item
+            android:id="@+id/make"
+            android:icon="@drawable/ic_account"
+            android:title="약속 잡기" />
+
+        <item
+            android:id="@+id/friend"
+            android:icon="@drawable/ic_account"
+            android:title="친구 목록" />
+
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/email1"
+            android:icon="@drawable/ic_account"
+            android:title="iamkys0417@gmail.com"/>
+
+        <item
+            android:id="@+id/email2"
+            android:icon="@drawable/ic_account"
+            android:title="iamkys0417@gmail.com"/>
+
+        <item
+            android:id="@+id/email3"
+            android:icon="@drawable/ic_account"
+            android:title="iamkys0417@gmail.com"/>
+
+        <item
+            android:id="@+id/email4"
+            android:icon="@drawable/ic_account"
+            android:title="iamkys0417@gmail.com"/>
+
+    </group>
+</menu>
