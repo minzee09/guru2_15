@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="일정 등록하기"
+        android:textColor="@color/main3"
         android:layout_marginBottom="10dp"
         android:textSize="20sp" />
 
@@ -43,6 +44,8 @@
                 android:layout_height="30dp"
                 android:background="#E8E8E8"
                 android:text="색 설정"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/main3"
                 android:textSize="12sp" />
 
 
@@ -79,6 +82,7 @@
             android:id="@+id/BtnDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/main3"
             android:text="날짜 선택"/>
 
 
@@ -234,7 +238,6 @@
             android:id="@+id/BtnInsert"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#E4E4E4"
             android:enabled="false"
             android:text="등록하기" />
 

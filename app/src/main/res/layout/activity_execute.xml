@@ -150,6 +150,8 @@
             android:id="@+id/btnmake"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:textSize="16sp"
+            android:backgroundTint="@color/main3"
             android:text="만들기"/>
     </LinearLayout>
 

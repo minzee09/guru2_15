@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="약속 잡기"
+            android:textSize="20sp"
             android:padding="20dp"/>
 
         <LinearLayout
@@ -216,6 +217,7 @@
 
         </LinearLayout>
 
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -223,28 +225,40 @@
             android:padding="20dp"
             android:textSize="20dp"/>
 
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#00a3d2"
+            android:background="@color/main3"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:gravity="center"
+            android:textColor="@color/white"
             android:text=" 확인된 시간 (ex. ~월 ~일 ~시 ~~ ~시)"
             android:textSize="18dp"/>
 
         <TextView
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#00a3d2"
+            android:background="@color/main3"
+            android:textColor="@color/white"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:gravity="center"
             android:text=" 확인된 시간 (ex. ~월 ~일 ~시 ~~ ~시)"
             android:textSize="18dp"/>
 
         <Button
+            android:layout_gravity="center"
             android:id="@+id/btnRe"
             android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/main3"
+            android:textSize="16sp"
             android:layout_height="wrap_content"
+
             android:text="다시 확인하기"/>
 
     </LinearLayout>

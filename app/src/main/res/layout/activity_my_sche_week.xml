@@ -48,7 +48,8 @@
         android:layout_marginStart="64dp"
         android:layout_marginTop="104dp"
         android:text="월"
-        android:textSize="12sp"
+        android:textSize="16sp"
+        android:backgroundTint="@color/main3"
         app:layout_constraintStart_toEndOf="@+id/userNameTv"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,7 +60,8 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="104dp"
         android:text="주"
-        android:textSize="12sp"
+        android:backgroundTint="@color/main3"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/monthBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,9 +70,10 @@
         android:layout_width="45dp"
         android:layout_height="40dp"
         android:layout_marginStart="7dp"
+        android:backgroundTint="@color/main3"
         android:layout_marginTop="104dp"
         android:text="일"
-        android:textSize="12sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/weekBtn"
         app:layout_constraintTop_toTopOf="parent" />
 

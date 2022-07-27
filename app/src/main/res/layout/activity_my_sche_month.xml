@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="277dp"
         android:text="Button"
+        android:backgroundTint="@color/main3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

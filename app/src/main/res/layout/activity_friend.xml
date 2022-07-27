@@ -22,20 +22,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/friendListButton"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginRight="50dp"
+            android:backgroundTint="@color/main3"
             android:text="친구 목록" />
 
         <Button
             android:id="@+id/friendAddButton"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:backgroundTint="@color/main1"
             android:text="친구 추가" />
     </LinearLayout>
 

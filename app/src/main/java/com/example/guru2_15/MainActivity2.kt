@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.*
+import androidx.annotation.ColorInt
 import com.example.guru2_15.databinding.ActivityMainBinding
 import com.nvt.color.ColorPickerDialog
 import java.util.*
@@ -66,6 +67,7 @@ class MainActivity2 : AppCompatActivity() {
                 if (editable.length > 0) {
                     BtnInsert.setClickable(true)
                     BtnInsert.isEnabled = true
+                    BtnInsert.setBackgroundColor(resources.getColor(R.color.main3))
                 } else {
                     BtnInsert.setClickable(false)
                     BtnInsert.isEnabled = false
