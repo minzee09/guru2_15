@@ -2,6 +2,7 @@ package com.example.guru2_15
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
+import android.content.Intent
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
@@ -27,6 +28,8 @@ class MyScheMonth : AppCompatActivity() {
     lateinit var contextEditText: EditText
     lateinit var testBtn: Button
 
+    lateinit var addScheFab : Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +45,7 @@ class MyScheMonth : AppCompatActivity() {
         contextEditText=findViewById(R.id.contextEditText)
 
         testBtn=findViewById(R.id.testBtn)
+        addScheFab = findViewById(R.id.addScheFab)
 
 
         testBtn.setOnClickListener{
@@ -55,6 +59,10 @@ class MyScheMonth : AppCompatActivity() {
             })
         }
 
+        addScheFab.setOnClickListener {
+            var intent = Intent(this, MainActivity2::class.java)
+            startActivity(intent)
+        }
 
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             diaryTextView.visibility = View.VISIBLE
@@ -67,13 +75,14 @@ class MyScheMonth : AppCompatActivity() {
             contextEditText.setText("")
             checkDay(year, month, dayOfMonth, userID)
 
-            /*val dialog = CustomDialog(this)
+            val dialog = scheDialog(this)
             dialog.showDialog()
-            dialog.setOnClickListener(object : CustomDialog.OnDialogClickListener {
-                override fun onClicked(name: String) {
-                    //  textview.text = name
+            dialog.setOnClickListener(object : scheDialog.OnDialogClickListener{
+                override fun onClicked(name: String)
+                {
+
                 }
-            })*/
+            })
         }
 
         saveBtn.setOnClickListener {

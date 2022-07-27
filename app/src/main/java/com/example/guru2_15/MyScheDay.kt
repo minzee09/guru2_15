@@ -1,10 +1,16 @@
 package com.example.guru2_15
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import com.github.mikephil.charting.charts.Chart
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MyScheDay : AppCompatActivity (),View.OnClickListener {
@@ -13,6 +19,8 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener {
     lateinit var weekBtn : Button
     lateinit var dayBtn : Button
     lateinit var addScheFab : FloatingActionButton
+    lateinit var pieChart: PieChart
+    var arrayColor = arrayListOf<Int>(Color.BLUE,Color.GRAY,Color.GREEN)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +36,29 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener {
         dayBtn.setOnClickListener(this)
         addScheFab.setOnClickListener(this)
 
+        pieChart = findViewById(R.id.chart)
+        var pieDataSet = PieDataSet(data1(),"하루 일정")
+        pieDataSet.setColors(arrayColor)
+        pieChart.setDrawEntryLabels(false) //차트에글자표시여부
+        pieChart.setUsePercentValues(false)//퍼센트표시여부
+        pieChart.isDrawHoleEnabled = false
+        pieChart.transparentCircleRadius = 61f
+
+        var pieData = PieData(pieDataSet)
+        pieChart.setData(pieData)
+        pieChart.invalidate()
     }
 
+
+    fun data1() : ArrayList<PieEntry>{
+        var datavalue = ArrayList<PieEntry>()
+
+        datavalue.add(PieEntry(30.0f,"전공 수업"))
+        datavalue.add(PieEntry(50.0f,"과제"))
+        datavalue.add(PieEntry(20.0f,"운동"))
+
+        return datavalue
+    }
     override fun onClick(view: View?){
         if(view!=null){
             when(view.id){
@@ -46,7 +75,8 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener {
                     startActivity(intent)
                 }
                 R.id.addScheFab -> {
-                    //일정추가 창 실행하기기
+                    var intent = Intent(this, MainActivity2::class.java)
+                    startActivity(intent)
                }
             }
         }

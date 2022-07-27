@@ -9,7 +9,7 @@ import android.view.WindowManager
 import android.widget.Button
 
 
-class scheDialog(context: Context) {
+class scheDialog(context: Context) : AppCompatActivity() {
     private val dialog = Dialog(context)
     private lateinit var onClickListener: OnDialogClickListener
 
