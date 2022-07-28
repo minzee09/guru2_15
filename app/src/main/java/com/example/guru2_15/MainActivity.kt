@@ -15,10 +15,11 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 
-class MainActivity : AppCompatActivity(), View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var drawerLayout : DrawerLayout
     lateinit var navigationView :NavigationView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +37,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NavigationView.O
 
         navigationView = findViewById(R.id.navigationView)
         navigationView.setNavigationItemSelectedListener(this)
-
 
 
 
@@ -59,25 +59,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NavigationView.O
             }
         }
 
-        val logoutBtn: Button = findViewById(R.id.logoutButton)
-        val friendBtn: Button = findViewById(R.id.gotoFriendButton)
+//        val logoutBtn: Button = findViewById(R.id.logoutButton)
+//        val friendBtn: Button = findViewById(R.id.gotoFriendButton)
 
-        logoutBtn.setOnClickListener(this)
-        friendBtn.setOnClickListener(this)
+        //logoutBtn.setOnClickListener(this)
+        //friendBtn.setOnClickListener(this)
     }
 
     //클릭 이벤트 재정의
-    override fun onClick(view: View?) {
-        if (view != null) {
-            when (view.id) {
-                R.id.logoutButton -> {
-                    FirebaseAuth.getInstance().signOut()
-                    startLoginActivity()
-                }
-                R.id.gotoFriendButton -> startActivity(Intent(this, FriendListActivity::class.java))
-            }
-        }
-    }
+//    override fun onClick(view: View?) {
+//        if (view != null) {
+//            when (view.id) {
+//                R.id.logoutButton -> {
+//                    FirebaseAuth.getInstance().signOut()
+//                    startLoginActivity()
+//                }
+//                R.id.gotoFriendButton -> startActivity(Intent(this, FriendListActivity::class.java))
+//            }
+//        }
+//    }
 
     //로그인 액티비티로 이동
     private fun startLoginActivity() {
@@ -98,12 +98,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NavigationView.O
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.home -> {
-                val intent = Intent(this, MyScheFirst::class.java)
-                startActivity(intent)
+                drawerLayout.closeDrawers()
                 return true
             }
             R.id.make -> {
-                val intent = Intent(this, MainActivity2::class.java)
+                val intent = Intent(this, ExecuteActivity::class.java)
                 startActivity(intent)
                 return true
             }
@@ -117,8 +116,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NavigationView.O
                 startActivity(intent)
                 return true
             }
+            R.id.app_logout -> {
+                FirebaseAuth.getInstance().signOut()
+                startLoginActivity()
+            }
         }
         return false
+    }
+
+    override fun onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawers()
+        }else{
+            super.onBackPressed()
+        }
     }
 
 }

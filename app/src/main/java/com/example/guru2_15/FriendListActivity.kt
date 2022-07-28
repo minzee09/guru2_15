@@ -40,7 +40,7 @@ class FriendListActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         if (view != null) {
             when (view.id) {
-                R.id.logoutButton -> {
+                R.id.app_logout -> {
                     FirebaseAuth.getInstance().signOut()
                     startLoginActivity()
                 }

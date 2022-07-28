@@ -27,9 +27,9 @@
             android:text="앱 정보"
             android:drawableLeft="@drawable/ic_baseline_error_outline_24"
             android:drawablePadding="16dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:textColor="@color/main3"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -74,6 +74,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:layout_marginTop="10dp"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -87,12 +88,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:layout_marginRight="16dp"
                 android:paddingBottom="10dp"
-                android:text="친구들과 약속시간 정하는 앱"/>
+                android:text="약속시간 정하는 앱"/>
 
         </LinearLayout>
 
@@ -107,6 +109,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:layout_marginTop="10dp"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -114,6 +117,7 @@
             android:text="Android 개발자"/>
 
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
@@ -122,28 +126,28 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:paddingBottom="10dp"
-                android:text="김현진"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:paddingBottom="10dp"
                 android:text="김민지"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:paddingBottom="10dp"
                 android:text="김윤수"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="16sp"
+                android:paddingBottom="10dp"
+                android:text="김현진"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
                 android:paddingBottom="10dp"
                 android:text="박현진"/>
 

@@ -16,33 +16,16 @@
             android:icon="@drawable/ic_baseline_perm_contact_calendar_24"
             android:title="친구 목록" />
 
-    </group>
-
-    <group android:checkableBehavior="single">
         <item
             android:id="@+id/app_info"
             android:icon="@drawable/ic_baseline_error_outline_24"
             android:title="앱 정보"/>
 
         <item
-            android:id="@+id/email1"
-            android:icon="@drawable/ic_account"
-            android:title="김민지"/>
-
-        <item
-            android:id="@+id/email2"
-            android:icon="@drawable/ic_account"
-            android:title="김윤수"/>
-
-        <item
-            android:id="@+id/email3"
-            android:icon="@drawable/ic_account"
-            android:title="김현진"/>
-
-        <item
-            android:id="@+id/email4"
-            android:icon="@drawable/ic_account"
-            android:title="박현진"/>
+            android:id="@+id/app_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="로그아웃"/>
 
     </group>
+
 </menu>
