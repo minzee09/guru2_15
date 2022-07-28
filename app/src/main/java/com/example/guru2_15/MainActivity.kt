@@ -97,9 +97,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NavigationView.O
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.home -> Toast.makeText(this,"홈버튼 실행", Toast.LENGTH_SHORT).show()
-            R.id.make -> Toast.makeText(this,"약속 잡기 실행", Toast.LENGTH_SHORT).show()
-            R.id.friend -> Toast.makeText(this,"친구목록 실행", Toast.LENGTH_SHORT).show()
+            R.id.home -> {
+                val intent = Intent(this, MyScheFirst::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.make -> {
+                val intent = Intent(this, MainActivity2::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.friend -> {
+                val intent = Intent(this, FriendListActivity::class.java)
+                startActivity(intent)
+                return true
+            }
             R.id.app_info -> {
                 val intent = Intent(this, Info::class.java)
                 startActivity(intent)

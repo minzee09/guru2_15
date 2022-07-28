@@ -47,8 +47,6 @@
         android:layout_marginStart="64dp"
         android:layout_marginTop="104dp"
         android:text="월"
-        android:backgroundTint="@color/main3"
-        android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/userNameTv"
         app:layout_constraintTop_toTopOf="parent"
@@ -75,6 +73,8 @@
         android:layout_marginTop="104dp"
         android:text="일"
         android:textSize="14sp"
+        android:backgroundTint="@color/main3"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/weekBtn"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
