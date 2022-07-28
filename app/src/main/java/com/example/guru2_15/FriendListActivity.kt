@@ -1,55 +1,53 @@
 package com.example.guru2_15
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.*
 
-class FriendListActivity : AppCompatActivity(), View.OnClickListener {
+class FriendListActivity : AppCompatActivity() {
+    private lateinit var recycleView: RecyclerView
+    private  var friendArrayList= arrayListOf<Friend>()
+    private lateinit var friendAdapter: FriendAdapter
+    private lateinit var db: FirebaseFirestore
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friend)
 
-        val user = FirebaseAuth.getInstance().currentUser
+        recycleView = findViewById(R.id.friend_recycler_view)
+        recycleView.layoutManager = LinearLayoutManager(this)
+        recycleView.setHasFixedSize(true)
 
-        val friendRV: RecyclerView = findViewById(R.id.recycler_view)
+        friendArrayList = arrayListOf()
 
-        //data - 아직 데이터베이스 연결 X
-        val friendList = arrayListOf(
-            Friend(R.drawable.profile,"김이름1","email@gmail.com"),
-            Friend(R.drawable.profile,"김이름2","email2@gmail.com"),
-            Friend(R.drawable.profile,"김이름3","email3@gmail.com"),
-            Friend(R.drawable.profile,"김이름4","email4@gmail.com"),
-            Friend(R.drawable.profile,"김이름5","email5@gmail.com"),
-            Friend(R.drawable.profile,"김이름6","email6@gmail.com"),
-        )
-        friendRV.layoutManager= LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false) //세로 방향
-        friendRV.setHasFixedSize(true) //리사이클뷰 성능 개선
+        friendAdapter = FriendAdapter(friendArrayList)
 
-        friendRV.adapter=FriendAdapter(friendList)
+        recycleView.adapter = FriendAdapter(friendArrayList)
+
+        EventChangeListener()
+
     }
 
-    //클릭 이벤트 재정의
-    override fun onClick(view: View?) {
-        if (view != null) {
-            when (view.id) {
-                R.id.app_logout -> {
-                    FirebaseAuth.getInstance().signOut()
-                    startLoginActivity()
+    private fun EventChangeListener() {
+        db = FirebaseFirestore.getInstance()
+        db.collection("userInfo").addSnapshotListener(object : EventListener<QuerySnapshot> {
+            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                if (error != null) {
+                    Log.e("Firestore error", error.message.toString())
+                    return
                 }
+                for (dc: DocumentChange in value?.documentChanges!!) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
+                        friendArrayList.add(dc.document.toObject(Friend::class.java))
+                    }
+                }
+                friendAdapter.notifyDataSetChanged()
             }
-        }
-    }
-
-    //로그인 액티비티로 이동
-    private fun startLoginActivity() {
-        startActivity(Intent(this, LoginActivity::class.java))
+        })
     }
 }
