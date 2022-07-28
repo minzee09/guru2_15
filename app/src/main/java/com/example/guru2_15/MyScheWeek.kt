@@ -1,18 +1,41 @@
 package com.example.guru2_15
 
 import android.content.Intent
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MyScheWeek : AppCompatActivity(),View.OnClickListener {
+
+    lateinit var date: String
+    lateinit var day1Tv : TextView
+    lateinit var day2Tv : TextView
+    lateinit var day3Tv : TextView
+    lateinit var day4Tv : TextView
+    lateinit var day5Tv : TextView
+    lateinit var day6Tv : TextView
+    lateinit var day7Tv : TextView
+    lateinit var day1Edt : EditText
+    lateinit var day2Edt : EditText
+    lateinit var day3Edt : EditText
+    lateinit var day4Edt : EditText
+    lateinit var day5Edt : EditText
+    lateinit var day6Edt : EditText
+    lateinit var day7Edt : EditText
 
     lateinit var monthBtn : Button
     lateinit var weekBtn : Button
     lateinit var dayBtn : Button
     lateinit var addScheFab : FloatingActionButton
+
+    lateinit var dbManager: DBManager
+    lateinit var sqlitedb : SQLiteDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +51,28 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener {
         dayBtn.setOnClickListener(this)
         addScheFab.setOnClickListener(this)
 
+        dbManager = DBManager(this, "schedule", null, 1)
+        sqlitedb = dbManager.readableDatabase
 
+        if (intent.hasExtra("date")) {
+            date = intent.getStringExtra("date").toString()
+        }
+        lateinit var sName:String
+        lateinit var sShour:String
+        lateinit var sSMinute:String
+
+        var cursor : Cursor
+        cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE name = '"+date+"';",null)
+        while (cursor.moveToNext()){
+            sName = cursor.getString(cursor.getColumnIndexOrThrow("Sname")).toString()
+            sShour = cursor.getString(cursor.getColumnIndexOrThrow("SShour")).toString()
+            sSMinute = cursor.getString(cursor.getColumnIndexOrThrow("SSminute")).toString()
+        }
+        day1Tv.text = date
+        day1Edt.setText("일정="+sName+"시간 = "+sShour+":"+sSMinute)
+
+        sqlitedb.close()
+        dbManager.close()
     }
     override fun onClick(view: View?){
         if(view!=null){

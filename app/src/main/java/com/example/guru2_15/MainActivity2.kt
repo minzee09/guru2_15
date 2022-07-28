@@ -13,6 +13,11 @@ import android.text.TextWatcher
 import android.widget.*
 import androidx.annotation.ColorInt
 import com.example.guru2_15.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.MutableData
 import com.nvt.color.ColorPickerDialog
 import java.util.*
 
@@ -34,6 +39,8 @@ class MainActivity2 : AppCompatActivity() {
     lateinit var EdtMemo : EditText
     lateinit var BtnInsert : Button
 
+    private var mAuth: FirebaseAuth? = null
+    private var mDatabaseRef : DatabaseReference? = null //
 
 
     lateinit var binding : ActivityMainBinding
@@ -137,6 +144,19 @@ class MainActivity2 : AppCompatActivity() {
             var str_splce: String = EdtPlace.text.toString()
             var str_smemo: String = EdtMemo.text.toString()
 
+         /*
+            val dataMap: MutableMap<String, Any> = mutableMapOf("scheName" to str_sname, "sColor" to str_color,"sDate" to str_date,
+                                                                    "sHour" to str_startHour, "sMin" to str_startMinute)
+            mAuth = FirebaseAuth.getInstance();
+            mDatabaseRef = FirebaseDatabase.getInstance().getReference("guru2_15")
+            var firebaseUser : FirebaseUser? = null
+            firebaseUser = mAuth!!.currentUser
+            var userUid = firebaseUser!!.uid
+            mDatabaseRef!!.child("UserAccount").child(firebaseUser!!.uid).updateChildren(dataMap)
+           // mDatabaseRef!!.child("UserAccount").child(firebaseUser!!.uid).updateChildren(["sName":str_sname])
+          //  var account = UserAccount("","","")
+          //  mDatabaseRef!!.child("UserAccount").child(firebaseUser!!.uid).set(account)*/
+
 
             sqlitedb = dbManager.writableDatabase
             sqlitedb.execSQL("INSERT INTO schedule VALUES ('" + str_sname + "' , '" + str_color + "', '"
@@ -144,7 +164,8 @@ class MainActivity2 : AppCompatActivity() {
                     + str_endHour + "' , '" + str_endMinute + "', '"+ str_splce+ "', '" + str_smemo + "');")
             sqlitedb.close()
 
-            val intent = Intent(this, HomeActivity::class.java)
+            val intent = Intent(this, MyScheDay::class.java)
+            intent.putExtra("date",str_date)
             Toast.makeText(applicationContext, "입력됨 ${str_color}", Toast.LENGTH_SHORT).show()
             startActivity(intent)
         }

@@ -64,6 +64,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         startToast("로그인에 성공하였습니다.")
+                        val intent = Intent(this, MyScheFirst::class.java)
+                        startActivity(intent) //액티비티 전환 메소드
+
                         val user = mAuth!!.currentUser
                         finish()
                     } else {

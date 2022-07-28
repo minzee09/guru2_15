@@ -1,11 +1,14 @@
 package com.example.guru2_15
 
 import android.content.Intent
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -15,21 +18,32 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MyScheDay : AppCompatActivity (),View.OnClickListener {
 
+    lateinit var date: String
     lateinit var monthBtn : Button
     lateinit var weekBtn : Button
     lateinit var dayBtn : Button
     lateinit var addScheFab : FloatingActionButton
+    lateinit var scheInfoTv:TextView
     lateinit var pieChart: PieChart
     var arrayColor = arrayListOf<Int>(Color.BLUE,Color.GRAY,Color.GREEN)
+
+    lateinit var dbManager: DBManager
+    lateinit var sqlitedb : SQLiteDatabase
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_sche_day)
 
+        if (intent.hasExtra("date")) {
+            date = intent.getStringExtra("date").toString()
+        }
+
         monthBtn = findViewById(R.id.monthBtn)
         weekBtn = findViewById(R.id.weekBtn)
         dayBtn = findViewById(R.id.dayBtn)
         addScheFab = findViewById(R.id.addScheFab)
+        scheInfoTv = findViewById(R.id.scheInfoTv)
 
         monthBtn.setOnClickListener(this)
         weekBtn.setOnClickListener(this)
@@ -47,6 +61,22 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener {
         var pieData = PieData(pieDataSet)
         pieChart.setData(pieData)
         pieChart.invalidate()
+
+        dbManager = DBManager(this, "schedule", null, 1)
+        sqlitedb = dbManager.readableDatabase
+
+        lateinit var sName:String
+        lateinit var sShour:String
+        lateinit var sSMinute:String
+
+        var cursor : Cursor
+        cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE name = '"+date+"';",null)
+        while (cursor.moveToNext()){
+            sName = cursor.getString(cursor.getColumnIndexOrThrow("Sname")).toString()
+            sShour = cursor.getString(cursor.getColumnIndexOrThrow("SShour")).toString()
+            sSMinute = cursor.getString(cursor.getColumnIndexOrThrow("SSminute")).toString()
+        }
+        scheInfoTv.text = "일정 "+sName + "시간 "+sShour+":"+sSMinute
     }
 
 
@@ -68,10 +98,12 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener {
                 }
                 R.id.weekBtn -> {
                     var intent = Intent(this, MyScheWeek::class.java)
+                    intent.putExtra("date",date)
                     startActivity(intent)
                 }
                 R.id.dayBtn -> {
                     var intent = Intent(this, MyScheDay::class.java)
+                    intent.putExtra("date",date)
                     startActivity(intent)
                 }
                 R.id.addScheFab -> {
