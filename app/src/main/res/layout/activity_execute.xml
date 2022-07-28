@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ExecuteActivity"
+    android:background="@color/main2"
     android:orientation="vertical">
 
     <LinearLayout
@@ -12,11 +13,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="약속 잡기"
+            android:textColor="@color/main3"
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="친구 선택"
-            android:textSize="15dp"
+            android:textSize="16dp"
+            android:drawableLeft="@drawable/num_1"
+            android:drawablePadding="10dp"
             android:padding="20dp"/>
 
         <LinearLayout
@@ -52,11 +68,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="시작 날짜"
-                android:textSize="15dp" />
+                android:drawableLeft="@drawable/num_2"
+                android:drawablePadding="10dp"
+                android:textSize="16dp" />
 
             <CalendarView
                 android:id="@+id/calenderView"
                 android:layout_width="match_parent"
+                android:background="@color/white"
                 android:layout_height="match_parent" />
 
 
@@ -71,7 +90,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="시작 시간"
-                    android:textSize="15dp" />
+
+                    android:textSize="16dp" />
 
                 <Spinner
                     android:layout_marginLeft="10dp"
@@ -104,10 +124,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="종료 날짜"
-                android:textSize="15dp" />
+                android:drawableLeft="@drawable/num_3"
+                android:drawablePadding="10dp"
+                android:textSize="16dp" />
 
             <CalendarView
                 android:id="@+id/calenderView2"
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -123,7 +146,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="종료 시간"
-                    android:textSize="15dp" />
+                    android:textSize="16dp" />
 
                 <Spinner
                     android:layout_marginLeft="10dp"
@@ -151,6 +174,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textSize="16sp"
+            android:textColor="@color/white"
             android:backgroundTint="@color/main3"
             android:text="만들기"/>
     </LinearLayout>

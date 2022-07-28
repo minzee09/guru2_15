@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main2"
     android:orientation="vertical">
 
     <TextView
@@ -27,17 +28,18 @@
 
         <Button
             android:id="@+id/friendListButton"
-            android:layout_width="150dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="50dp"
+            android:layout_marginRight="20dp"
             android:backgroundTint="@color/main3"
+            android:textColor="@color/white"
             android:text="친구 목록" />
 
         <Button
             android:id="@+id/friendAddButton"
-            android:layout_width="150dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/main1"
+            android:backgroundTint="@color/white"
             android:text="친구 추가" />
     </LinearLayout>
 

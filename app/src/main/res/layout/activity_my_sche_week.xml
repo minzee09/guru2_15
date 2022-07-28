@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main2"
     tools:context=".MyScheWeek">
 
     <TextView
@@ -14,7 +15,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="나의 일정"
-        android:textColor="#000000"
+        android:textColor="@color/main3"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -48,8 +49,7 @@
         android:layout_marginStart="64dp"
         android:layout_marginTop="104dp"
         android:text="월"
-        android:textSize="16sp"
-        android:backgroundTint="@color/main3"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/userNameTv"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,8 +60,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="104dp"
         android:text="주"
-        android:backgroundTint="@color/main3"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/monthBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,7 +72,7 @@
         android:backgroundTint="@color/main3"
         android:layout_marginTop="104dp"
         android:text="일"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/weekBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,10 +83,10 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="17dp"
         android:clickable="true"
-        app:backgroundTint="@color/purple_200"
+        app:backgroundTint="@color/main3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_add"
+        app:srcCompat="@drawable/ic_baseline_add_24"
         app:tint="@color/white" />
 
     <TableLayout

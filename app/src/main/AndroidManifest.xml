@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Guru2_15"
         tools:targetApi="31">
         <activity
+            android:name=".Info"
+            android:exported="false" />
+        <activity
             android:name=".ResultActivity"
             android:parentActivityName=".ExecuteActivity" />
         <activity
@@ -54,7 +57,6 @@
         <activity
             android:name=".MyScheFirst"
             android:exported="false" />
-
     </application>
 
 </manifest>

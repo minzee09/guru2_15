@@ -17,7 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/purple_200"
+            android:background="@color/main3"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentInsetStart="0dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -35,6 +35,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="28dp"
             android:layout_marginTop="151dp"
+            android:backgroundTint="@color/main2"
             android:text="로그아웃"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,6 +47,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="26dp"
             android:layout_marginTop="85dp"
+            android:backgroundTint="@color/main3"
+            android:textColor="@color/white"
             android:text="친구"
             app:layout_constraintStart_toEndOf="@+id/logoutButton"
             tools:layout_editor_absoluteY="0dp" />

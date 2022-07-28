@@ -100,6 +100,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NavigationView.O
             R.id.home -> Toast.makeText(this,"홈버튼 실행", Toast.LENGTH_SHORT).show()
             R.id.make -> Toast.makeText(this,"약속 잡기 실행", Toast.LENGTH_SHORT).show()
             R.id.friend -> Toast.makeText(this,"친구목록 실행", Toast.LENGTH_SHORT).show()
+            R.id.app_info -> {
+                val intent = Intent(this, Info::class.java)
+                startActivity(intent)
+                return true
+            }
         }
         return false
     }
