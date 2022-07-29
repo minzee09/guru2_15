@@ -145,18 +145,19 @@ class MainActivity2 : AppCompatActivity() {
             var str_splce: String = EdtPlace.text.toString()
             var str_smemo: String = EdtMemo.text.toString()
 
-         /*
-            val dataMap: MutableMap<String, Any> = mutableMapOf("scheName" to str_sname, "sColor" to str_color,"sDate" to str_date,
-                                                                    "sHour" to str_startHour, "sMin" to str_startMinute)
-            mAuth = FirebaseAuth.getInstance();
-            mDatabaseRef = FirebaseDatabase.getInstance().getReference("guru2_15")
-            var firebaseUser : FirebaseUser? = null
-            firebaseUser = mAuth!!.currentUser
-            var userUid = firebaseUser!!.uid
-            mDatabaseRef!!.child("UserAccount").child(firebaseUser!!.uid).updateChildren(dataMap)
-           // mDatabaseRef!!.child("UserAccount").child(firebaseUser!!.uid).updateChildren(["sName":str_sname])
-          //  var account = UserAccount("","","")
-          //  mDatabaseRef!!.child("UserAccount").child(firebaseUser!!.uid).set(account)*/
+
+            /*
+               val dataMap: MutableMap<String, Any> = mutableMapOf("scheName" to str_sname, "sColor" to str_color,"sDate" to str_date,
+                                                                       "sHour" to str_startHour, "sMin" to str_startMinute)
+               mAuth = FirebaseAuth.getInstance();
+               mDatabaseRef = FirebaseDatabase.getInstance().getReference("guru2_15")
+               var firebaseUser : FirebaseUser? = null
+               firebaseUser = mAuth!!.currentUser
+               var userUid = firebaseUser!!.uid
+               mDatabaseRef!!.child("UserAccount").child(firebaseUser!!.uid).updateChildren(dataMap)
+              // mDatabaseRef!!.child("UserAccount").child(firebaseUser!!.uid).updateChildren(["sName":str_sname])
+             //  var account = UserAccount("","","")
+             //  mDatabaseRef!!.child("UserAccount").child(firebaseUser!!.uid).set(account)*/
 
 
             sqlitedb = dbManager.writableDatabase

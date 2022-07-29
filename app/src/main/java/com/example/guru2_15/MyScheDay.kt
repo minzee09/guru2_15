@@ -65,12 +65,12 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener {
         dbManager = DBManager(this, "schedule", null, 1)
         sqlitedb = dbManager.readableDatabase
 
-        lateinit var sName:String
-        lateinit var sShour:String
-        lateinit var sSMinute:String
+        var sName : String? = null
+        var sShour:String? = null
+        var sSMinute:String? = null
 
         var cursor : Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE name = '"+date+"';",null)
+        cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE sName = '" + date +"';",null)
         while (cursor.moveToNext()){
             sName = cursor.getString(cursor.getColumnIndexOrThrow("Sname")).toString()
             sShour = cursor.getString(cursor.getColumnIndexOrThrow("SShour")).toString()
