@@ -1,22 +1,35 @@
 package com.example.guru2_15
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 
 class MemberInitActivity : AppCompatActivity(), View.OnClickListener {
 
+    var auth: FirebaseAuth? = null
+    var firestore: FirebaseFirestore? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_member_init) //회원정보
+
+
+        auth = Firebase.auth
+        firestore = FirebaseFirestore.getInstance()
 
         val checkBtn: Button = findViewById(R.id.checkButton)
 
@@ -42,27 +55,22 @@ class MemberInitActivity : AppCompatActivity(), View.OnClickListener {
     //기존 사용자 로그인
     private fun profileUpdate() {
         var name: String = findViewById<EditText>(R.id.nameEditText).text.toString()
+        var nickname: String = findViewById<EditText>(R.id.nicknameEditText).text.toString()
 
         // 이메일, 비번, 비번 확인 다 입력시(공백X) 실행
-        if (name.isNotEmpty()){
-            val user = FirebaseAuth.getInstance().currentUser
+        if (name.isNotEmpty() && nickname.isNotEmpty()) {
 
-            val profileUpdates = userProfileChangeRequest {
-                displayName = name
-            }
-            if (user != null) {
-                user!!.updateProfile(profileUpdates)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            startToast("회원정보 등록에 성공하였습니다.")
-                            startActivity(Intent(this, MainActivity::class.java))
-                        }
-                    }
-            } else {
-                startToast("회원정보를 입력해주세요.")
-            }
+            //데이터 추가
+            var friend = Friend(name, nickname)
+
+            firestore?.collection("userInfo")?.document(auth!!.currentUser!!.uid)?.set(friend)
+            Toast.makeText(this, "저장완료", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, MainActivity::class.java))
+        } else {
+            startToast("회원정보를 입력해주세요.")
         }
     }
+
 
     //토스트 호출 함수
     private fun startToast(msg: String) {
