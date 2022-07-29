@@ -1,10 +1,7 @@
 package com.example.guru2_15
 
-import android.content.ContentValues.TAG
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -12,9 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
@@ -57,12 +52,11 @@ class MemberInitActivity : AppCompatActivity(), View.OnClickListener {
         var name: String = findViewById<EditText>(R.id.nameEditText).text.toString()
         var nickname: String = findViewById<EditText>(R.id.nicknameEditText).text.toString()
 
-        // 이메일, 비번, 비번 확인 다 입력시(공백X) 실행
+        //다 입력시(공백X) 실행
         if (name.isNotEmpty() && nickname.isNotEmpty()) {
 
             //데이터 추가
             var friend = Friend(name, nickname)
-
             firestore?.collection("userInfo")?.document(auth!!.currentUser!!.uid)?.set(friend)
             Toast.makeText(this, "저장완료", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, MainActivity::class.java))

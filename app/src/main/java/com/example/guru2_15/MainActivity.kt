@@ -3,17 +3,14 @@ package com.example.guru2_15
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
-import android.widget.Toast
+
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -54,18 +51,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //현재 유저가 널값이라면 (로그인이 안되어있을 떄)
         if (user == null) {
             startLoginActivity()
-        } else {
-            //회원가입 or 로그인
-            user.let {
-                for (profile in it.providerData) {
-                    val name = profile.displayName
-                    if (name != null) {
-                        if (name.isEmpty()) {
-                            startActivity(Intent(this, MemberInitActivity::class.java))
-                        }
-                    }
-                }
-            }
         }
 
 //        val logoutBtn: Button = findViewById(R.id.logoutButton)

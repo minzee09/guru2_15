@@ -1,20 +1,18 @@
 package com.example.guru2_15
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.guru2_15.databinding.ActivityFriendBinding
+import com.example.guru2_15.databinding.ActivityFriendAddBinding
 import com.google.firebase.firestore.*
-import com.google.firebase.firestore.ktx.toObject
 
 
-class FriendListActivity : AppCompatActivity() {
+
+class FriendAddActivity : AppCompatActivity() {
     // 전역 변수로 바인딩 객체 선언
-    private var mBinding: ActivityFriendBinding? = null
+    private var mBinding: ActivityFriendAddBinding? = null
 
     // 매번 null 체크를 할 필요 없이 편의성을 위해 바인딩 변수 재 선언
     private val binding get() = mBinding!!
@@ -26,7 +24,7 @@ class FriendListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivityFriendBinding.inflate(layoutInflater)
+        mBinding = ActivityFriendAddBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
