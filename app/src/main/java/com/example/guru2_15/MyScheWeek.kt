@@ -13,7 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MyScheWeek : AppCompatActivity(),View.OnClickListener {
 
-    lateinit var date: String
+    var date: String? = null
     lateinit var day1Tv : TextView
     lateinit var day2Tv : TextView
     lateinit var day3Tv : TextView

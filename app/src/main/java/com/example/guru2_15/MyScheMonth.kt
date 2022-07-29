@@ -5,17 +5,28 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 
-class MyScheMonth : AppCompatActivity(),View.OnClickListener  {
+class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNavigationItemSelectedListener  {
+
+    lateinit var drawerLayout : DrawerLayout
+    lateinit var navigationView : NavigationView
+
     var userID: String = "userID"
     lateinit var calendarView: CalendarView
-    lateinit var addScheFab : Button
+    lateinit var addScheFab : FloatingActionButton
     lateinit var monthBtn : Button
     lateinit var weekBtn : Button
     lateinit var dayBtn : Button
@@ -26,6 +37,19 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_sche_month)
+
+        // 상단 툴바 설정ㅁ
+        val toolbar : Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.navi_menu)
+
+        drawerLayout = findViewById(R.id.drawerLayout)
+
+        navigationView = findViewById(R.id.navigationView)
+        navigationView.setNavigationItemSelectedListener(this)
 
         // UI값 생성
         calendarView=findViewById(R.id.calendarView)
@@ -100,6 +124,57 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener  {
         }
     }
 
+    private fun startLoginActivity() {
+        startActivity(Intent(this, LoginActivity::class.java))
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item!!.itemId){
+            android.R.id.home -> {
+                drawerLayout.openDrawer(GravityCompat.START)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.home -> {
+                drawerLayout.closeDrawers()
+                return true
+            }
+            R.id.make -> {
+                val intent = Intent(this, ExecuteActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.friend -> {
+                val intent = Intent(this, FriendListActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.app_info -> {
+                val intent = Intent(this, Info::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.app_logout -> {
+                FirebaseAuth.getInstance().signOut()
+                startLoginActivity()
+            }
+        }
+        return false
+    }
+
+    override fun onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawers()
+        }else{
+            super.onBackPressed()
+        }
+    }
 
 
 }

@@ -121,8 +121,7 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
                     startActivity(intent)
                 }
                 R.id.weekBtn -> {
-                    var intent = Intent(this, MyScheWeek::class.java)
-                    intent.putExtra("date",date)
+                    var intent = Intent(this,MyScheWeek::class.java)
                     startActivity(intent)
                 }
                 R.id.dayBtn -> {
