@@ -20,10 +20,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var drawerLayout : DrawerLayout
     lateinit var navigationView :NavigationView
 
+    lateinit var addScheBtn : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        addScheBtn = findViewById(R.id.addScheBtn)
+
+        addScheBtn.setOnClickListener {
+            var intent = Intent(this, MainActivity2::class.java)
+            startActivity(intent)
+
+        }
 
         // 상단 툴바 설정
         val toolbar : Toolbar = findViewById(R.id.toolbar)
@@ -98,10 +107,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.home -> {
-                val intent = Intent(this, MyScheDay::class.java)
-                startActivity(intent)
-
-                //drawerLayout.closeDrawers()
+                drawerLayout.closeDrawers()
                 return true
             }
             R.id.make -> {
