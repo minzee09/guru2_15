@@ -6,17 +6,26 @@ import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 
-class MyScheDay : AppCompatActivity (),View.OnClickListener {
+class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+
+    lateinit var drawerLayout : DrawerLayout
+    lateinit var navigationView : NavigationView
 
     lateinit var date: String
     lateinit var monthBtn : Button
@@ -77,6 +86,21 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener {
             sSMinute = cursor.getString(cursor.getColumnIndexOrThrow("SSminute")).toString()
         }
         scheInfoTv.text = "일정 "+sName + "시간 "+sShour+":"+sSMinute
+
+
+        // 상단 툴바 설정
+        val toolbar : Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.navi_menu)
+
+        drawerLayout = findViewById(R.id.drawerLayout)
+
+        navigationView = findViewById(R.id.navigationView)
+        navigationView.setNavigationItemSelectedListener(this)
+
     }
 
 
@@ -113,4 +137,56 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener {
             }
         }
     }
+
+    private fun startLoginActivity() {
+        startActivity(Intent(this, LoginActivity::class.java))
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item!!.itemId){
+            android.R.id.home -> {
+                drawerLayout.openDrawer(GravityCompat.START)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.home -> {
+                drawerLayout.closeDrawers()
+                return true
+            }
+            R.id.make -> {
+                val intent = Intent(this, ExecuteActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.friend -> {
+                val intent = Intent(this, FriendListActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.app_info -> {
+                val intent = Intent(this, Info::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.app_logout -> {
+                FirebaseAuth.getInstance().signOut()
+                startLoginActivity()
+            }
+        }
+        return false
+    }
+
+    override fun onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawers()
+        }else{
+            super.onBackPressed()
+        }
+    }
+
 }
