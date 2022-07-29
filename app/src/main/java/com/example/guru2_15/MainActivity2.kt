@@ -75,6 +75,7 @@ class MainActivity2 : AppCompatActivity() {
                     BtnInsert.setClickable(true)
                     BtnInsert.isEnabled = true
                     BtnInsert.setBackgroundColor(resources.getColor(R.color.main3))
+                    BtnInsert.setTextColor(resources.getColor(R.color.white))
                 } else {
                     BtnInsert.setClickable(false)
                     BtnInsert.isEnabled = false
@@ -166,7 +167,7 @@ class MainActivity2 : AppCompatActivity() {
 
             val intent = Intent(this, MyScheDay::class.java)
             intent.putExtra("date",str_date)
-            Toast.makeText(applicationContext, "입력됨 ${str_color}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "입력됨", Toast.LENGTH_SHORT).show()
             startActivity(intent)
         }
 

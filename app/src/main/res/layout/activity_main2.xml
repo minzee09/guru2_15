@@ -240,6 +240,7 @@
             android:id="@+id/BtnInsert"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:textSize="16sp"
             android:enabled="false"
             android:text="등록하기" />
 
