@@ -63,9 +63,9 @@ class MemberInitActivity : AppCompatActivity(), View.OnClickListener {
             if (intent.hasExtra("UID")) {
                 getUID = intent.getStringExtra("UID").toString()
             }
-            val intent2 = Intent(this, MyScheFirst::class.java)
-            intent2.putExtra("UID",getUID)
-            startActivity(intent2)
+           // val intent2 = Intent(this, MyScheFirst::class.java)
+           // intent2.putExtra("UID",getUID)
+           // startActivity(intent2)
 
             // startActivity(Intent(this, MyScheDay::class.java))
         } else {

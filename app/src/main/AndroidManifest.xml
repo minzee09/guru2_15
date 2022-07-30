@@ -55,9 +55,7 @@
         <activity
             android:name=".MyScheDay"
             android:exported="false" />
-        <activity
-            android:name=".MyScheFirst"
-            android:exported="false" />
+
     </application>
 
 </manifest>
