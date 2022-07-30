@@ -32,6 +32,8 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
 
     lateinit var dbManager: DBManager
     lateinit var sqlitedb : SQLiteDatabase
+    private var mAuth: FirebaseAuth? = null
+
     lateinit var getUID:String
     lateinit var date: String
 
@@ -66,13 +68,15 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
 
         dbManager = DBManager(this, "schedule", null, 1)
         sqlitedb = dbManager.readableDatabase
+        mAuth = FirebaseAuth.getInstance();
+        getUID = mAuth!!.currentUser?.uid.toString()
 
         if (intent.hasExtra("date")) { //일정 등록한 날짜 정보 가져오기
             date = intent.getStringExtra("date").toString()
         }
-        if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
+        /*if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
             getUID = intent.getStringExtra("UID").toString()
-        }
+        }*/
 
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             val dialog = scheDialog(this)
@@ -83,7 +87,7 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
                     var info = dialog.findViewById<TextView>(R.id.infoTv)
                     var date = "${year}년 ${month}월 ${dayOfMonth}일"
                     var cursor : Cursor
-                    cursor = sqlitedb.rawQuery("SELECT UID,Sdate FROM schedule WHERE UID = '"+getUID+"', Sdate = '"+date+"'",null)
+                    cursor = sqlitedb.rawQuery("SELECT UID,Sdate FROM schedule WHERE UID = '"+getUID+"', Sdate = '"+date+"';",null)
                     if(cursor==null){
                         info.text="일정 없음"
                     }

@@ -36,6 +36,7 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
 
     lateinit var dbManager: DBManager
     lateinit var sqlitedb : SQLiteDatabase
+    private var mAuth: FirebaseAuth? = null
 
     lateinit var getUID:String
     lateinit var date: String
@@ -44,12 +45,15 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_sche_day)
 
+        mAuth = FirebaseAuth.getInstance();
+        getUID = mAuth!!.currentUser?.uid.toString()
+
         if (intent.hasExtra("date")) { //일정 등록한 날짜 정보 가져오기
             date = intent.getStringExtra("date").toString()
         }
-        if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
+        /*if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
             getUID = intent.getStringExtra("UID").toString()
-        }
+        }*/
 
 
         monthBtn = findViewById(R.id.monthBtn)
@@ -84,7 +88,7 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
 
         var cursor : Cursor
         //cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '" + getUID +"';",null)
-        cursor = sqlitedb.rawQuery("SELECT UID,Sdate FROM schedule WHERE UID = '"+getUID+"', Sdate = '"+date+"'",null)
+        cursor = sqlitedb.rawQuery("SELECT UID, Sdate FROM schedule WHERE UID = '"+getUID+"', Sdate = '"+date+"';",null)
         while (cursor.moveToNext()){
             sName = cursor.getString(cursor.getColumnIndexOrThrow("Sname")).toString()
             sShour = cursor.getString(cursor.getColumnIndexOrThrow("SShour")).toString()

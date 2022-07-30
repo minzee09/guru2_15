@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 
 class MyScheWeek : AppCompatActivity(),View.OnClickListener {
 
@@ -35,6 +36,7 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener {
 
     lateinit var dbManager: DBManager
     lateinit var sqlitedb : SQLiteDatabase
+    private var mAuth: FirebaseAuth? = null
 
     lateinit var getUID:String
     lateinit var date: String
@@ -56,19 +58,23 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener {
         dbManager = DBManager(this, "schedule", null, 1)
         sqlitedb = dbManager.readableDatabase
 
+        mAuth = FirebaseAuth.getInstance();
+        getUID = mAuth!!.currentUser?.uid.toString()
+
         if (intent.hasExtra("date")) { //일정 등록한 날짜 정보 가져오기
             date = intent.getStringExtra("date").toString()
         }
-        if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
+        /*if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
             getUID = intent.getStringExtra("UID").toString()
-        }
+        }*/
+
 
         var sName : String? = null
         var sShour:String? = null
         var sSMinute:String? = null
 
         var cursor : Cursor
-        cursor = sqlitedb.rawQuery("SELECT UID,Sdate FROM schedule WHERE UID = '"+getUID+"', Sdate = '"+date+"'",null)
+        cursor = sqlitedb.rawQuery("SELECT UID,Sdate FROM schedule WHERE UID = '"+getUID+"', Sdate = '"+date+"';",null)
         while (cursor.moveToNext()){
             sName = cursor.getString(cursor.getColumnIndexOrThrow("Sname")).toString()
             sShour = cursor.getString(cursor.getColumnIndexOrThrow("SShour")).toString()
@@ -90,7 +96,6 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener {
                     startActivity(intent)
                 }
                 R.id.weekBtn -> {
-
                 }
                 R.id.dayBtn -> {
                     var intent = Intent(this, MyScheDay::class.java)

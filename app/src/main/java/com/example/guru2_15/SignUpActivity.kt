@@ -20,7 +20,7 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var sqlitedb : SQLiteDatabase
 
     private var mAuth: FirebaseAuth? = null
-    private var mDatabaseRef: DatabaseReference? = null //실시간데베
+  //  private var mDatabaseRef: DatabaseReference? = null //실시간데베
     var db: FirebaseFirestore? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +31,7 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("guru2_15")
+  //      mDatabaseRef = FirebaseDatabase.getInstance().getReference("guru2_15")
         db = FirebaseFirestore.getInstance()
 
         val signUpBtn: Button = findViewById(R.id.signUpButton)
@@ -64,22 +64,22 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) { //회원가입이 됐을 때
                             val user = mAuth!!.currentUser
-                            var account = UserAccount("", "", "", "")
+                           /* var account = UserAccount("", "", "", "")
                             account.email = user?.email.toString()
                             account.password = password
                             account.idToken = user!!.uid
                             account.name = name
 
                             //setValue : database에 insert하기
-                            mDatabaseRef!!.child("UserAccount").child(user.uid).setValue(account)
+                            mDatabaseRef!!.child("UserAccount").child(user.uid).setValue(account)*/
 
                             sqlitedb = dbManager.writableDatabase //회원이메일,ㅠㅏ이어베이스uid저장데이터베이스
-                            sqlitedb.execSQL("INSERT INTO userInfo VALUES ('"+ account.email+ "', '" + account.idToken + "');")
+                            sqlitedb.execSQL("INSERT INTO userInfo VALUES ('"+user?.email+ "', '" +user?.uid+ "');")
                             sqlitedb.close()
 
-                            val intent = Intent(this, MemberInitActivity::class.java)
-                            intent.putExtra("UID",account.idToken)
-                            startActivity(intent)
+                          /*  val intent = Intent(this, MemberInitActivity::class.java)
+                            intent.putExtra("UID",user?.uid)
+                            startActivity(intent)*/
 
                           //  startActivity(Intent(this,MemberInitActivity::class.java))
                             profileUpdate()
