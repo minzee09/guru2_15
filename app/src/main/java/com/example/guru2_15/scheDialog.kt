@@ -7,12 +7,13 @@ import android.app.Dialog
 import android.content.Context
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.TextView
 
 
 class scheDialog(context: Context) : AppCompatActivity() {
     private val dialog = Dialog(context)
     private lateinit var onClickListener: OnDialogClickListener
-
+    var info = dialog.findViewById<TextView>(R.id.infoTv)
 
     fun setOnClickListener(listener: OnDialogClickListener)
     {

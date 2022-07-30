@@ -1,5 +1,6 @@
 package com.example.guru2_15
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
@@ -10,6 +11,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -42,7 +44,7 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
         setContentView(R.layout.activity_my_sche_month)
 
         // 상단 툴바 설정ㅁ
-        val toolbar : Toolbar = findViewById(R.id.toolbar)
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -55,7 +57,7 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
         navigationView.setNavigationItemSelectedListener(this)
 
         // UI값 생성
-        calendarView=findViewById(R.id.calendarView)
+        calendarView = findViewById(R.id.calendarView)
         addScheFab = findViewById(R.id.addScheFab)
         monthBtn = findViewById(R.id.monthBtn)
         weekBtn = findViewById(R.id.weekBtn)
@@ -79,7 +81,36 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
         }*/
 
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            val dialog = scheDialog(this)
+            var cursor: Cursor
+            cursor = sqlitedb.rawQuery(
+                "SELECT * FROM schedule WHERE UID = '" + getUID + "' AND Sdate = '" + date + "';",
+                null
+            )
+            if (cursor == null) {
+
+            }
+            else {
+                lateinit var sName: String
+                lateinit var sShour: String
+                lateinit var sSMinute: String
+
+                while (cursor.moveToNext()) {
+                    sName = cursor.getString(cursor.getColumnIndexOrThrow("Sname")).toString()
+                    sShour = cursor.getString(cursor.getColumnIndexOrThrow("SShour")).toString()
+                    sSMinute = cursor.getString(cursor.getColumnIndexOrThrow("SSminute")).toString()
+                }
+
+                var builder = AlertDialog.Builder(this)
+                builder.setTitle("일정!")
+                var v1 = layoutInflater.inflate(R.layout.activity_sche_dialog, null)
+                builder.setView(v1)
+                var listener = DialogInterface.OnClickListener { p0, p1 ->
+                    var alert = p0 as AlertDialog
+                    var infoTv: TextView? = alert.findViewById(R.id.infoTv)
+                    infoTv?.text = "${sName}스케줄 시간 = ${sShour}: ${sSMinute}"
+                }
+                builder.show()
+                /*  val dialog = scheDialog(this)
             dialog.showDialog()
             dialog.setOnClickListener(object : scheDialog.OnDialogClickListener{
                 override fun onClicked(name: String)
@@ -107,13 +138,12 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
                     }
 
                 }
-            })
+            })*/
+            }
+
+
         }
-
-
-
     }
-
     override fun onClick(view: View?){
         if(view!=null){
             when(view.id){
