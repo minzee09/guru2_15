@@ -26,17 +26,17 @@ class MainActivity2 : AppCompatActivity() {
 
     lateinit var dbManager: DBManager
     lateinit var sqlitedb : SQLiteDatabase
-    lateinit var EdtSchedulName : EditText
-    lateinit var Colorr : Button
-    lateinit var BtnColorSelect : Button
-    lateinit var BtnDate : Button
-    lateinit var SpinnerStartHour : Spinner
-    lateinit var SpinnerStartMinute : Spinner
-    lateinit var SpinnerEndHour : Spinner
-    lateinit var SpinnerEndMinute : Spinner
-    lateinit var EdtPlace : EditText
-    lateinit var EdtMemo : EditText
-    lateinit var BtnInsert : Button
+    lateinit var EdtSchedulName : EditText // 일정이름
+    lateinit var Colorr : Button  //색
+    lateinit var BtnColorSelect : Button  // 색 선택 버튼
+    lateinit var BtnDate : Button  //날짜 선택 버튼
+    lateinit var SpinnerStartHour : Spinner  //일정 시작하는 시간 시(0시~23시)
+    lateinit var SpinnerStartMinute : Spinner //일정 시작하는 시간 분 (0분, 30분)
+    lateinit var SpinnerEndHour : Spinner  //일정 끝나는 시간 시간 시(0시~23시)
+    lateinit var SpinnerEndMinute : Spinner //일정 끝나는 시간 분 (0분, 30분)
+    lateinit var EdtPlace : EditText  //일정 장소
+    lateinit var EdtMemo : EditText  //일정 메모
+    lateinit var BtnInsert : Button  //일정 등록버튼
 
     private var mAuth: FirebaseAuth? = null
     private var mDatabaseRef : DatabaseReference? = null //
@@ -66,6 +66,7 @@ class MainActivity2 : AppCompatActivity() {
         BtnInsert = findViewById(R.id.BtnInsert)
 
 
+        //일정이름을 입력하면 등록하기 버튼 활성화
         EdtSchedulName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
@@ -82,6 +83,7 @@ class MainActivity2 : AppCompatActivity() {
             }
         })
 
+        //일정 색 설정하기 (colorPicker)
         BtnColorSelect.setOnClickListener {
             val colorPicker = ColorPickerDialog(
                 this,
@@ -101,7 +103,7 @@ class MainActivity2 : AppCompatActivity() {
         }
 
 
-
+        //일정 날짜 선택하기
         BtnDate.setOnClickListener {
             val today = GregorianCalendar()
             val year: Int = today.get(Calendar.YEAR)
@@ -132,6 +134,7 @@ class MainActivity2 : AppCompatActivity() {
         SpinnerEndHour.setAdapter(Adapter1)
         SpinnerEndMinute.setAdapter(Adapter2)
 
+        //입력한 일정 데이터베이스로 전달
         BtnInsert.setOnClickListener {
 
             var str_sname : String = EdtSchedulName.text.toString()
@@ -155,7 +158,7 @@ class MainActivity2 : AppCompatActivity() {
             val intent = Intent(this, MyScheDay::class.java)
             intent.putExtra("date",str_date)
             intent.putExtra("UID",getUID)
-            Toast.makeText(applicationContext, "입력됨", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "입력됨 ${str_color}", Toast.LENGTH_SHORT).show()
             startActivity(intent)
         }
 
