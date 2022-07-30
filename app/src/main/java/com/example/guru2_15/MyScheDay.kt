@@ -88,7 +88,7 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
 
         var cursor : Cursor
         //cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '" + getUID +"';",null)
-        cursor = sqlitedb.rawQuery("SELECT UID, Sdate FROM schedule WHERE UID = '"+getUID+"', Sdate = '"+date+"';",null)
+        cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '"+getUID+"' AND Sdate = '"+date+"';",null)
         while (cursor.moveToNext()){
             sName = cursor.getString(cursor.getColumnIndexOrThrow("Sname")).toString()
             sShour = cursor.getString(cursor.getColumnIndexOrThrow("SShour")).toString()

@@ -87,9 +87,9 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
                     var info = dialog.findViewById<TextView>(R.id.infoTv)
                     var date = "${year}년 ${month}월 ${dayOfMonth}일"
                     var cursor : Cursor
-                    cursor = sqlitedb.rawQuery("SELECT UID,Sdate FROM schedule WHERE UID = '"+getUID+"', Sdate = '"+date+"';",null)
+                    cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '"+getUID+"' AND Sdate = '"+date+"';",null)
                     if(cursor==null){
-                        info.text="일정 없음"
+                        info.text = getString( R.string.info_message,"일정 없음","0","0")
                     }
                     else{
                         lateinit var sName:String
@@ -102,7 +102,8 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
                             sSMinute = cursor.getString(cursor.getColumnIndexOrThrow("SSminute")).toString()
                         }
 
-                        info.text = "${sName}스케줄 시간 = ${sShour}: ${sSMinute}"
+                        info.text = getString( R.string.info_message,sName,sShour,sSMinute)
+                        //info.text = "${sName}스케줄 시간 = ${sShour}: ${sSMinute}"
                     }
 
                 }
