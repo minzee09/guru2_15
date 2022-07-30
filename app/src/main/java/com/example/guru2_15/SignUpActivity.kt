@@ -16,7 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
     private var mAuth: FirebaseAuth? = null
-    private var mDatabaseRef : DatabaseReference? = null //실시간데베
+    private var mDatabaseRef: DatabaseReference? = null //실시간데베
     var db: FirebaseFirestore? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,28 +46,29 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
     private fun signUp() {
         var email: String = findViewById<EditText>(R.id.emailEditText).text.toString()
         var password: String = findViewById<EditText>(R.id.passwordEditText).text.toString()
-        var passwordCheck: String = findViewById<EditText>(R.id.passwordCheckEditText).text.toString()
+        var passwordCheck: String =
+            findViewById<EditText>(R.id.passwordCheckEditText).text.toString()
         var name: String = findViewById<EditText>(R.id.nameEditText).text.toString()
 
         // 이메일, 비번, 비번 확인 다 입력시(공백X) 실행
-        if(email.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty()) {
+        if (email.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty() && name.isNotEmpty()) {
             // 비번하고 비번 확인이 같을때 회원가입 실행
             if (password.equals(passwordCheck)) {
                 mAuth!!.createUserWithEmailAndPassword(email, password) //파이어베이스유저등록
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) { //회원가입이 됐을 때
                             val user = mAuth!!.currentUser
-                            var account = UserAccount("","","","")
+                            var account = UserAccount("", "", "", "")
                             account.email = user?.email.toString()
                             account.password = password
                             account.idToken = user!!.uid
-                            account.name=name
+                            account.name = name
 
                             //setValue : database에 insert하기
                             mDatabaseRef!!.child("UserAccount").child(user.uid).setValue(account)
 
                             profileUpdate()
-                            startActivity(Intent(this,MainActivity::class.java))
+                            startActivity(Intent(this, MainActivity::class.java))
                         } else {
                             if (task.exception != null) {
                                 startToast(task.exception.toString())
@@ -83,7 +84,7 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     //토스트 호출 함수
-    private fun startToast(msg : String){
+    private fun startToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 

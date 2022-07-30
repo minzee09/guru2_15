@@ -3,14 +3,18 @@ package com.example.guru2_15
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.TextView
 
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -30,6 +34,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(intent)
 
         }
+
+        //text view 가져오기
+        var userNameTv: TextView = findViewById(R.id.userNameTv)
+        //var naviName: TextView = findViewById<TextView?>(R.id.navigationView).findViewById(R.id.naviNameTextView)
+        //var naviEmail: TextView = findViewById(R.id.naviEmailTextView)
+
 
         // 상단 툴바 설정
         val toolbar : Toolbar = findViewById(R.id.toolbar)
@@ -52,7 +62,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (user == null) {
             startLoginActivity()
         }
+        //사용자 정보 가져오기
+        user?.let {
 
+            var name = user.uid //사용자 ID값
+            //naviEmail.text=user.email //텍스트뷰에 사용자 정보 구현
+
+            val db = FirebaseFirestore.getInstance()
+
+            //홈화면에 사용자 이름 화면 연결
+            db.collection("userInfo").document(name)// 작업할 컬렉션 및 다큐먼트
+                .get()
+                .addOnSuccessListener { document ->
+                    // 성공할 경우
+                    if (document != null) {
+                        name = document["name"] as String
+                        //텍스트뷰에 사용자 정보 구현
+                        userNameTv.text = name
+                        //naviName.text=name
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    // 실패할 경우
+                    Log.w("FriendListActivity", "Error getting documents: $exception")
+                }
+        }
 //        val logoutBtn: Button = findViewById(R.id.logoutButton)
 //        val friendBtn: Button = findViewById(R.id.gotoFriendButton)
 

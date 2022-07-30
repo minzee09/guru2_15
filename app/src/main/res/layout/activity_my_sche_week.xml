@@ -9,7 +9,7 @@
     tools:context=".MyScheWeek">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/naviNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -28,7 +28,7 @@
         android:layout_marginTop="30dp"
         android:layout_weight="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/naviNameTextView"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
