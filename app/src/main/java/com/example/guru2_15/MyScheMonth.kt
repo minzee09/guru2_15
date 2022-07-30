@@ -24,7 +24,6 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
     lateinit var drawerLayout : DrawerLayout
     lateinit var navigationView : NavigationView
 
-    var userID: String = "userID"
     lateinit var calendarView: CalendarView
     lateinit var addScheFab : FloatingActionButton
     lateinit var monthBtn : Button
@@ -34,6 +33,7 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
     lateinit var dbManager: DBManager
     lateinit var sqlitedb : SQLiteDatabase
     lateinit var getUID:String
+    lateinit var date: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +67,9 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
         dbManager = DBManager(this, "schedule", null, 1)
         sqlitedb = dbManager.readableDatabase
 
+        if (intent.hasExtra("date")) { //일정 등록한 날짜 정보 가져오기
+            date = intent.getStringExtra("date").toString()
+        }
         if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
             getUID = intent.getStringExtra("UID").toString()
         }
@@ -110,19 +113,22 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
         if(view!=null){
             when(view.id){
                 R.id.monthBtn -> {
-                    var intent = Intent(this, MyScheMonth::class.java)
-                    startActivity(intent)
                 }
                 R.id.weekBtn -> {
                     var intent = Intent(this, MyScheWeek::class.java)
+                    intent.putExtra("date",date)
+                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
                 R.id.dayBtn -> {
                     var intent = Intent(this, MyScheDay::class.java)
+                    intent.putExtra("date",date)
+                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
                 R.id.addScheFab -> {
                     var intent = Intent(this, MainActivity2::class.java)
+                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
             }
