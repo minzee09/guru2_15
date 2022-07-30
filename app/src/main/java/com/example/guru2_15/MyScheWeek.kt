@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
+import java.util.*
 
 class MyScheWeek : AppCompatActivity(),View.OnClickListener {
 
@@ -28,7 +29,9 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener {
     lateinit var day5Edt : EditText
     lateinit var day6Edt : EditText
     lateinit var day7Edt : EditText
-
+    lateinit var year : String
+    lateinit var month: String
+    lateinit var day : String
     lateinit var monthBtn : Button
     lateinit var weekBtn : Button
     lateinit var dayBtn : Button
@@ -40,6 +43,9 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener {
 
     lateinit var getUID:String
     lateinit var date: String
+    var sName : String? = "일정 없음!"
+    var sShour:String? = "00"
+    var sSMinute:String? = "00"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +55,20 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener {
         weekBtn = findViewById(R.id.weekBtn)
         dayBtn = findViewById(R.id.dayBtn)
         addScheFab = findViewById(R.id.addScheFab)
+        day1Tv = findViewById(R.id.day1Tv)
+        day1Edt = findViewById(R.id.day1Edt)
+        day2Tv = findViewById(R.id.day2Tv)
+        day2Edt = findViewById(R.id.day2Edt)
+        day3Tv = findViewById(R.id.day3Tv)
+        day3Edt = findViewById(R.id.day3Edt)
+        day4Tv = findViewById(R.id.day4Tv)
+        day4Edt = findViewById(R.id.day4Edt)
+        day5Tv = findViewById(R.id.day5Tv)
+        day5Edt = findViewById(R.id.day5Edt)
+        day6Tv = findViewById(R.id.day6Tv)
+        day6Edt = findViewById(R.id.day6Edt)
+        day7Tv = findViewById(R.id.day7Tv)
+        day7Edt = findViewById(R.id.day7Edt)
 
         monthBtn.setOnClickListener(this)
         weekBtn.setOnClickListener(this)
@@ -64,27 +84,62 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener {
         if (intent.hasExtra("date")) { //일정 등록한 날짜 정보 가져오기
             date = intent.getStringExtra("date").toString()
         }
-        /*if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
-            getUID = intent.getStringExtra("UID").toString()
-        }*/
 
-
-        var sName : String? = null
-        var sShour:String? = null
-        var sSMinute:String? = null
-
-        var cursor : Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '"+getUID+"'AND Sdate = '"+date+"';",null)
-        while (cursor.moveToNext()){
-            sName = cursor.getString(cursor.getColumnIndexOrThrow("Sname")).toString()
-            sShour = cursor.getString(cursor.getColumnIndexOrThrow("SShour")).toString()
-            sSMinute = cursor.getString(cursor.getColumnIndexOrThrow("SSminute")).toString()
-        }
-        day1Tv.text = date
-        day1Edt.setText("일정="+sName+"시간 = "+sShour+":"+sSMinute)
+        val cal = Calendar.getInstance()//오늘날짜가져와서
+        setTexts(cal)
+        day1Tv.text = "${month} / ${day}"
+        day1Edt.setText(""+sName+" 시간 = "+sShour+":"+sSMinute)
+        cal.add(Calendar.DATE,1) //다음날로이동
+        resetTexts()
+        setTexts(cal)
+        day2Tv.text = "${month} / ${day}"
+        day2Edt.setText(""+sName+" 시간 = "+sShour+":"+sSMinute)
+        cal.add(Calendar.DATE,1) //다음날로이동
+        resetTexts()
+        setTexts(cal)
+        day3Tv.text = "${month} / ${day}"
+        day3Edt.setText(""+sName+" 시간 = "+sShour+":"+sSMinute)
+        cal.add(Calendar.DATE,1) //다음날로이동
+        resetTexts()
+        setTexts(cal)
+        day4Tv.text = "${month} / ${day}"
+        day4Edt.setText(""+sName+" 시간 = "+sShour+":"+sSMinute)
+        cal.add(Calendar.DATE,1) //다음날로이동
+        resetTexts()
+        setTexts(cal)
+        day5Tv.text = "${month} / ${day}"
+        day5Edt.setText(""+sName+" 시간 = "+sShour+":"+sSMinute)
+        cal.add(Calendar.DATE,1) //다음날로이동
+        resetTexts()
+        setTexts(cal)
+        day6Tv.text = "${month} / ${day}"
+        day6Edt.setText(""+sName+" 시간 = "+sShour+":"+sSMinute)
+        cal.add(Calendar.DATE,1) //다음날로이동
+        resetTexts()
+        setTexts(cal)
+        day7Tv.text = "${month} / ${day}"
+        day7Edt.setText(""+sName+" 시간 = "+sShour+":"+sSMinute)
 
         sqlitedb.close()
         dbManager.close()
+    }
+    fun setTexts(cal : Calendar){
+        year = cal.get(Calendar.YEAR).toString()
+        month = (cal.get(Calendar.MONTH) + 1).toString()
+        day = cal.get(Calendar.DATE).toString()
+        var date_ = "${year}년 ${month}월 ${day}일"
+        var cursor : Cursor
+        cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '"+getUID+"' AND Sdate = '"+date_+"';",null)
+        while(cursor.moveToNext()) {
+            sName=cursor.getString(cursor.getColumnIndexOrThrow("Sname"))
+            sShour=cursor.getString(cursor.getColumnIndexOrThrow("SShour"))
+            sSMinute=cursor.getString(cursor.getColumnIndexOrThrow("SSminute"))
+        }
+    }
+    fun resetTexts(){
+        sName = "일정 없음!"
+        sShour = "00"
+        sSMinute="00"
     }
     override fun onClick(view: View?){
         if(view!=null){

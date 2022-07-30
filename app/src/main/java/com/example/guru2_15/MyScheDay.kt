@@ -32,7 +32,6 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
     lateinit var addScheFab : FloatingActionButton
     lateinit var scheInfoTv:TextView
     lateinit var pieChart: PieChart
-    var arrayColor = arrayListOf<Int>(Color.BLUE,Color.GRAY,Color.GREEN)
 
     lateinit var dbManager: DBManager
     lateinit var sqlitedb : SQLiteDatabase
@@ -40,6 +39,10 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
 
     lateinit var getUID:String
     lateinit var date: String
+    var sName : String? = null
+    var sShour:String? = null
+    var sSMinute:String? = null
+    var scolor:String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,9 +54,6 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
         if (intent.hasExtra("date")) { //일정 등록한 날짜 정보 가져오기
             date = intent.getStringExtra("date").toString()
         }
-        /*if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
-            getUID = intent.getStringExtra("UID").toString()
-        }*/
 
 
         monthBtn = findViewById(R.id.monthBtn)
@@ -67,34 +67,20 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
         dayBtn.setOnClickListener(this)
         addScheFab.setOnClickListener(this)
 
-        pieChart = findViewById(R.id.chart)
-        var pieDataSet = PieDataSet(data1(),"하루 일정")
-        pieDataSet.setColors(arrayColor)
-        pieChart.setDrawEntryLabels(false) //차트에글자표시여부
-        pieChart.setUsePercentValues(false)//퍼센트표시여부
-        pieChart.isDrawHoleEnabled = false
-        pieChart.transparentCircleRadius = 61f
-
-        var pieData = PieData(pieDataSet)
-        pieChart.setData(pieData)
-        pieChart.invalidate()
-
         dbManager = DBManager(this, "schedule", null, 1)
         sqlitedb = dbManager.readableDatabase
-
-        var sName : String? = null
-        var sShour:String? = null
-        var sSMinute:String? = null
 
         var cursor : Cursor
         //cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '" + getUID +"';",null)
         cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '"+getUID+"' AND Sdate = '"+date+"';",null)
-        while (cursor.moveToNext()){
-            sName = cursor.getString(cursor.getColumnIndexOrThrow("Sname")).toString()
-            sShour = cursor.getString(cursor.getColumnIndexOrThrow("SShour")).toString()
-            sSMinute = cursor.getString(cursor.getColumnIndexOrThrow("SSminute")).toString()
+        while(cursor.moveToNext()) {
+            sName=cursor.getString(cursor.getColumnIndexOrThrow("Sname"))
+            sShour=cursor.getString(cursor.getColumnIndexOrThrow("SShour"))
+            sSMinute=cursor.getString(cursor.getColumnIndexOrThrow("SSminute"))
+            scolor=cursor.getString(cursor.getColumnIndexOrThrow("Scolor"))
         }
-        scheInfoTv.text = "일정 "+sName + "시간 "+sShour+":"+sSMinute
+
+        scheInfoTv.text = date+"의 일정은 "+sName + " 시간 "+sShour+":"+sSMinute
 
 
         // 상단 툴바 설정
@@ -112,15 +98,27 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
 
         sqlitedb.close()
         dbManager.close()
+
+        pieChart = findViewById(R.id.chart)
+        var pieDataSet = PieDataSet(data1(),sName)
+        var arrayColor = arrayListOf<Int>(Color.GREEN,Color.YELLOW)
+        pieDataSet.setColors(arrayColor)
+        pieChart.setEntryLabelTextSize(30.0f)
+        pieChart.setDrawEntryLabels(true) //차트에글자표시여부
+        pieChart.setUsePercentValues(false)//퍼센트표시여부
+        pieChart.isDrawHoleEnabled = false
+        pieChart.transparentCircleRadius = 61f
+
+        var pieData = PieData(pieDataSet)
+        pieChart.setData(pieData)
+        pieChart.invalidate()
     }
 
 
     fun data1() : ArrayList<PieEntry>{
         var datavalue = ArrayList<PieEntry>()
 
-        datavalue.add(PieEntry(30.0f,"전공 수업"))
-        datavalue.add(PieEntry(50.0f,"과제"))
-        datavalue.add(PieEntry(20.0f,"운동"))
+        datavalue.add(PieEntry(100.0f,sName))
 
         return datavalue
     }

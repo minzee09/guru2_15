@@ -11,30 +11,29 @@ import android.widget.TextView
 
 
 class scheDialog(context: Context) : AppCompatActivity() {
-    private val dialog = Dialog(context)
-    private lateinit var onClickListener: OnDialogClickListener
-    var info = dialog.findViewById<TextView>(R.id.infoTv)
+    /*  private val dialog = Dialog(context)
+      private lateinit var onClickListener: OnDialogClickListener
 
-    fun setOnClickListener(listener: OnDialogClickListener)
-    {
-        onClickListener = listener
-    }
-    fun showDialog()
-    {
-        dialog.setContentView(R.layout.activity_sche_dialog)
-        dialog.window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
-        dialog.setCanceledOnTouchOutside(true)
-        dialog.setCancelable(true)
-        dialog.show()
+      fun setOnClickListener(listener: OnDialogClickListener)
+      {
+          onClickListener = listener
+      }
+      fun showDialog()
+      {
+          dialog.setContentView(R.layout.activity_sche_dialog)
+          dialog.window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+          dialog.setCanceledOnTouchOutside(true)
+          dialog.setCancelable(true)
+          dialog.show()
 
-        val cancleBtn = dialog.findViewById<Button>(R.id.cancelBtn)
-        cancleBtn.setOnClickListener {
-            dialog.dismiss()
-        }
-    }
-    interface OnDialogClickListener
-    {
-        fun onClicked(name: String)
-    }
+          val cancleBtn = dialog.findViewById<Button>(R.id.cancelBtn)
+          cancleBtn.setOnClickListener {
+              dialog.dismiss()
+          }
+      }
+      interface OnDialogClickListener
+      {
+          fun onClicked(name: String)
+      }*/
 
 }

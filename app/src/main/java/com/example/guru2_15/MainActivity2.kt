@@ -39,7 +39,6 @@ class MainActivity2 : AppCompatActivity() {
     lateinit var BtnInsert : Button  //일정 등록버튼
 
     private var mAuth: FirebaseAuth? = null
-    private var mDatabaseRef : DatabaseReference? = null //
 
     lateinit var getUID:String
 
@@ -47,9 +46,8 @@ class MainActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
-        if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
-            getUID = intent.getStringExtra("UID").toString()
-        }
+        mAuth = FirebaseAuth.getInstance();
+        getUID = mAuth!!.currentUser?.uid.toString()
 
         dbManager = DBManager(this, "schedule", null, 1)
 

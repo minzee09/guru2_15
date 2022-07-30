@@ -43,12 +43,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/monthBtn"
+        android:id="@+id/dayBtn"
         android:layout_width="45dp"
         android:layout_height="40dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="104dp"
-        android:text="월"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="120dp"
+        android:text="일"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/userNameTv"
         app:layout_constraintTop_toTopOf="parent" />
@@ -57,23 +57,25 @@
         android:id="@+id/weekBtn"
         android:layout_width="45dp"
         android:layout_height="40dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="120dp"
         android:backgroundTint="@color/main3"
-        android:textColor="@color/white"
         android:text="주"
+        android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/monthBtn"
+        app:layout_constraintStart_toEndOf="@+id/dayBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/dayBtn"
+        android:id="@+id/monthBtn"
         android:layout_width="45dp"
         android:layout_height="40dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="104dp"
-        android:text="일"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="120dp"
+        android:text="월"
         android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/weekBtn"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -10,7 +10,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.CalendarView
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -38,6 +37,9 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
 
     lateinit var getUID:String
     lateinit var date: String
+    var sName: String ?= "일정 없음"
+    var sShour: String ?= "00"
+    var sSMinute: String ?= "00"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,72 +78,26 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
         if (intent.hasExtra("date")) { //일정 등록한 날짜 정보 가져오기
             date = intent.getStringExtra("date").toString()
         }
-        /*if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
-            getUID = intent.getStringExtra("UID").toString()
-        }*/
 
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             var cursor: Cursor
-            cursor = sqlitedb.rawQuery(
-                "SELECT * FROM schedule WHERE UID = '" + getUID + "' AND Sdate = '" + date + "';",
-                null
-            )
-            if (cursor == null) {
+            var date_ = "${year}년 ${month+1}월 ${dayOfMonth}일"
 
+            var builder = AlertDialog.Builder(this)
+            builder.setTitle("일정!!")
+            var v1 = layoutInflater.inflate(R.layout.activity_sche_dialog, null)
+            builder.setView(v1)
+            sName= "일정 없음"
+            sShour= "00"
+            sSMinute= "00"
+            cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '"+getUID+"' AND Sdate = '"+date_+"';",null)
+            while(cursor.moveToNext()) {
+                sName=cursor.getString(cursor.getColumnIndexOrThrow("Sname"))
+                sShour=cursor.getString(cursor.getColumnIndexOrThrow("SShour"))
+                sSMinute=cursor.getString(cursor.getColumnIndexOrThrow("SSminute"))
             }
-            else {
-                lateinit var sName: String
-                lateinit var sShour: String
-                lateinit var sSMinute: String
-
-                while (cursor.moveToNext()) {
-                    sName = cursor.getString(cursor.getColumnIndexOrThrow("Sname")).toString()
-                    sShour = cursor.getString(cursor.getColumnIndexOrThrow("SShour")).toString()
-                    sSMinute = cursor.getString(cursor.getColumnIndexOrThrow("SSminute")).toString()
-                }
-
-                var builder = AlertDialog.Builder(this)
-                builder.setTitle("일정!")
-                var v1 = layoutInflater.inflate(R.layout.activity_sche_dialog, null)
-                builder.setView(v1)
-                var listener = DialogInterface.OnClickListener { p0, p1 ->
-                    var alert = p0 as AlertDialog
-                    var infoTv: TextView? = alert.findViewById(R.id.infoTv)
-                    infoTv?.text = "${sName}스케줄 시간 = ${sShour}: ${sSMinute}"
-                }
-                builder.show()
-                /*  val dialog = scheDialog(this)
-            dialog.showDialog()
-            dialog.setOnClickListener(object : scheDialog.OnDialogClickListener{
-                override fun onClicked(name: String)
-                {
-                    var info = dialog.findViewById<TextView>(R.id.infoTv)
-                    var date = "${year}년 ${month}월 ${dayOfMonth}일"
-                    var cursor : Cursor
-                    cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '"+getUID+"' AND Sdate = '"+date+"';",null)
-                    if(cursor==null){
-                        info.text = getString( R.string.info_message,"일정 없음","0","0")
-                    }
-                    else{
-                        lateinit var sName:String
-                        lateinit var sShour:String
-                        lateinit var sSMinute:String
-
-                        while (cursor.moveToNext()){
-                            sName = cursor.getString(cursor.getColumnIndexOrThrow("Sname")).toString()
-                            sShour = cursor.getString(cursor.getColumnIndexOrThrow("SShour")).toString()
-                            sSMinute = cursor.getString(cursor.getColumnIndexOrThrow("SSminute")).toString()
-                        }
-
-                        info.text = getString( R.string.info_message,sName,sShour,sSMinute)
-                        //info.text = "${sName}스케줄 시간 = ${sShour}: ${sSMinute}"
-                    }
-
-                }
-            })*/
-            }
-
-
+            builder.setMessage("${sName} | 시간 = ${sShour}: ${sSMinute}")
+            builder.show()
         }
     }
     override fun onClick(view: View?){
@@ -152,18 +108,15 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
                 R.id.weekBtn -> {
                     var intent = Intent(this, MyScheWeek::class.java)
                     intent.putExtra("date",date)
-                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
                 R.id.dayBtn -> {
                     var intent = Intent(this, MyScheDay::class.java)
                     intent.putExtra("date",date)
-                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
                 R.id.addScheFab -> {
                     var intent = Intent(this, MainActivity2::class.java)
-                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
             }
