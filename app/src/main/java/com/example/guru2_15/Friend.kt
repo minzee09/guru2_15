@@ -1,3 +1,3 @@
 package com.example.guru2_15
 
-class Friend(val name: String, val email:String)
+data class Friend(var name: String, var email:String)

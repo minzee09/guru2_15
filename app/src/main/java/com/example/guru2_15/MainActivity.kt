@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .addOnSuccessListener { document ->
                     // 성공할 경우
                     if (document != null) {
-                        name = document["name"] as String
+                        name = (document["name"] as? String).toString()
                         //텍스트뷰에 사용자 정보 구현
                         userNameTv.text = name
                         //naviName.text=name

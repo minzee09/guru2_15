@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var sqlitedb : SQLiteDatabase
 
     private var mAuth: FirebaseAuth? = null
-    private var mDatabaseRef : DatabaseReference? = null //실시간데베
+   // private var mDatabaseRef : DatabaseReference? = null //실시간데베
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference()
+      //  mDatabaseRef = FirebaseDatabase.getInstance().getReference()
 
         val loginBtn: Button = findViewById(R.id.loginButton)
         val goToSignUpBtn: Button = findViewById(R.id.gotoSignUpButton)
@@ -73,11 +73,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         startToast("로그인에 성공하였습니다.")
 
                         sqlitedb = dbManager.writableDatabase //회원이메일,ㅠㅏ이어베이스uid저장데이터베이스
-
-                        var cursor : Cursor
-                        cursor = sqlitedb.rawQuery("SELECT * FROM userInfo WHERE UserEmail = '" + email +"';",null)
-                        var getUID = cursor.getString(1) //로그인한 유저의 UID 정보 가져오기
-
+                        val user = mAuth!!.currentUser
+                      //  var cursor : Cursor
+                       // cursor = sqlitedb.rawQuery("SELECT * FROM userInfo WHERE UserEmail = '" + email +"';",null)
+                        //var getUID = cursor.getString(1) //로그인한 유저의 UID 정보 가져오기
+                        var getUID = user?.uid
 
                         sqlitedb.close()
 
@@ -86,7 +86,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         intent.putExtra("UID",getUID)
                         startActivity(intent) //액티비티 전환 메소드
 
-                        val user = mAuth!!.currentUser
                         finish()
                     } else {
                         startToast(task.exception.toString())

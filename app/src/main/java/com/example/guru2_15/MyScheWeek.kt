@@ -10,10 +10,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 
 class MyScheWeek : AppCompatActivity(),View.OnClickListener {
 
-    var date: String? = null
     lateinit var day1Tv : TextView
     lateinit var day2Tv : TextView
     lateinit var day3Tv : TextView
@@ -36,6 +36,10 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener {
 
     lateinit var dbManager: DBManager
     lateinit var sqlitedb : SQLiteDatabase
+    private var mAuth: FirebaseAuth? = null
+
+    lateinit var getUID:String
+    lateinit var date: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,16 +58,23 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener {
         dbManager = DBManager(this, "schedule", null, 1)
         sqlitedb = dbManager.readableDatabase
 
-        if (intent.hasExtra("date")) {
+        mAuth = FirebaseAuth.getInstance();
+        getUID = mAuth!!.currentUser?.uid.toString()
+
+        if (intent.hasExtra("date")) { //일정 등록한 날짜 정보 가져오기
             date = intent.getStringExtra("date").toString()
         }
+        /*if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
+            getUID = intent.getStringExtra("UID").toString()
+        }*/
+
 
         var sName : String? = null
         var sShour:String? = null
         var sSMinute:String? = null
 
         var cursor : Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE sName = '"+date+"';",null)
+        cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '"+getUID+"'AND Sdate = '"+date+"';",null)
         while (cursor.moveToNext()){
             sName = cursor.getString(cursor.getColumnIndexOrThrow("Sname")).toString()
             sShour = cursor.getString(cursor.getColumnIndexOrThrow("SShour")).toString()
@@ -80,18 +91,21 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener {
             when(view.id){
                 R.id.monthBtn -> {
                     var intent = Intent(this, MyScheMonth::class.java)
+                    intent.putExtra("date",date)
+                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
                 R.id.weekBtn -> {
-                    var intent = Intent(this, MyScheWeek::class.java)
-                    startActivity(intent)
                 }
                 R.id.dayBtn -> {
                     var intent = Intent(this, MyScheDay::class.java)
+                    intent.putExtra("date",date)
+                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
                 R.id.addScheFab -> {
                     var intent = Intent(this, MainActivity2::class.java)
+                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
             }

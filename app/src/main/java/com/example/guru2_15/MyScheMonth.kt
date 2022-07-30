@@ -1,5 +1,6 @@
 package com.example.guru2_15
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
@@ -10,6 +11,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -24,7 +26,6 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
     lateinit var drawerLayout : DrawerLayout
     lateinit var navigationView : NavigationView
 
-    var userID: String = "userID"
     lateinit var calendarView: CalendarView
     lateinit var addScheFab : FloatingActionButton
     lateinit var monthBtn : Button
@@ -33,14 +34,17 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
 
     lateinit var dbManager: DBManager
     lateinit var sqlitedb : SQLiteDatabase
+    private var mAuth: FirebaseAuth? = null
+
     lateinit var getUID:String
+    lateinit var date: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_sche_month)
 
         // 상단 툴바 설정ㅁ
-        val toolbar : Toolbar = findViewById(R.id.toolbar)
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -53,7 +57,7 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
         navigationView.setNavigationItemSelectedListener(this)
 
         // UI값 생성
-        calendarView=findViewById(R.id.calendarView)
+        calendarView = findViewById(R.id.calendarView)
         addScheFab = findViewById(R.id.addScheFab)
         monthBtn = findViewById(R.id.monthBtn)
         weekBtn = findViewById(R.id.weekBtn)
@@ -66,13 +70,47 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
 
         dbManager = DBManager(this, "schedule", null, 1)
         sqlitedb = dbManager.readableDatabase
+        mAuth = FirebaseAuth.getInstance();
+        getUID = mAuth!!.currentUser?.uid.toString()
 
-        if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
-            getUID = intent.getStringExtra("UID").toString()
+        if (intent.hasExtra("date")) { //일정 등록한 날짜 정보 가져오기
+            date = intent.getStringExtra("date").toString()
         }
+        /*if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
+            getUID = intent.getStringExtra("UID").toString()
+        }*/
 
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            val dialog = scheDialog(this)
+            var cursor: Cursor
+            cursor = sqlitedb.rawQuery(
+                "SELECT * FROM schedule WHERE UID = '" + getUID + "' AND Sdate = '" + date + "';",
+                null
+            )
+            if (cursor == null) {
+
+            }
+            else {
+                lateinit var sName: String
+                lateinit var sShour: String
+                lateinit var sSMinute: String
+
+                while (cursor.moveToNext()) {
+                    sName = cursor.getString(cursor.getColumnIndexOrThrow("Sname")).toString()
+                    sShour = cursor.getString(cursor.getColumnIndexOrThrow("SShour")).toString()
+                    sSMinute = cursor.getString(cursor.getColumnIndexOrThrow("SSminute")).toString()
+                }
+
+                var builder = AlertDialog.Builder(this)
+                builder.setTitle("일정!")
+                var v1 = layoutInflater.inflate(R.layout.activity_sche_dialog, null)
+                builder.setView(v1)
+                var listener = DialogInterface.OnClickListener { p0, p1 ->
+                    var alert = p0 as AlertDialog
+                    var infoTv: TextView? = alert.findViewById(R.id.infoTv)
+                    infoTv?.text = "${sName}스케줄 시간 = ${sShour}: ${sSMinute}"
+                }
+                builder.show()
+                /*  val dialog = scheDialog(this)
             dialog.showDialog()
             dialog.setOnClickListener(object : scheDialog.OnDialogClickListener{
                 override fun onClicked(name: String)
@@ -80,9 +118,9 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
                     var info = dialog.findViewById<TextView>(R.id.infoTv)
                     var date = "${year}년 ${month}월 ${dayOfMonth}일"
                     var cursor : Cursor
-                    cursor = sqlitedb.rawQuery("SELECT UID,Sdate FROM schedule WHERE UID = '"+getUID+"', Sdate = '"+date+"'",null)
+                    cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '"+getUID+"' AND Sdate = '"+date+"';",null)
                     if(cursor==null){
-                        info.text="일정 없음"
+                        info.text = getString( R.string.info_message,"일정 없음","0","0")
                     }
                     else{
                         lateinit var sName:String
@@ -95,34 +133,37 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
                             sSMinute = cursor.getString(cursor.getColumnIndexOrThrow("SSminute")).toString()
                         }
 
-                        info.text = "${sName}스케줄 시간 = ${sShour}: ${sSMinute}"
+                        info.text = getString( R.string.info_message,sName,sShour,sSMinute)
+                        //info.text = "${sName}스케줄 시간 = ${sShour}: ${sSMinute}"
                     }
 
                 }
-            })
+            })*/
+            }
+
+
         }
-
-
-
     }
-
     override fun onClick(view: View?){
         if(view!=null){
             when(view.id){
                 R.id.monthBtn -> {
-                    var intent = Intent(this, MyScheMonth::class.java)
-                    startActivity(intent)
                 }
                 R.id.weekBtn -> {
                     var intent = Intent(this, MyScheWeek::class.java)
+                    intent.putExtra("date",date)
+                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
                 R.id.dayBtn -> {
                     var intent = Intent(this, MyScheDay::class.java)
+                    intent.putExtra("date",date)
+                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
                 R.id.addScheFab -> {
                     var intent = Intent(this, MainActivity2::class.java)
+                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
             }

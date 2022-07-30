@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">guru2_15</string>
+    <string name="info_message">스케줄: %1$s! 시간: %2$s 시 %3$s 분</string>
 </resources>
