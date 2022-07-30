@@ -1,6 +1,8 @@
 package com.example.guru2_15
 
 import android.content.Intent
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -14,12 +16,17 @@ import com.google.firebase.database.FirebaseDatabase
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
+    lateinit var dbManager: DBManager
+    lateinit var sqlitedb : SQLiteDatabase
+
     private var mAuth: FirebaseAuth? = null
     private var mDatabaseRef : DatabaseReference? = null //실시간데베
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login) //로그인
+
+        dbManager = DBManager(this, "userInfo", null, 1)
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -64,7 +71,19 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         startToast("로그인에 성공하였습니다.")
+
+                        sqlitedb = dbManager.writableDatabase //회원이메일,ㅠㅏ이어베이스uid저장데이터베이스
+
+                        var cursor : Cursor
+                        cursor = sqlitedb.rawQuery("SELECT * FROM userInfo WHERE UserEmail = '" + email +"';",null)
+                        var getUID = cursor.getString(1) //로그인한 유저의 UID 정보 가져오기
+
+
+                        sqlitedb.close()
+
+                        //val intent = Intent(this, MyScheFirst::class.java)
                         val intent = Intent(this, MainActivity::class.java)
+                        intent.putExtra("UID",getUID)
                         startActivity(intent) //액티비티 전환 메소드
 
                         val user = mAuth!!.currentUser

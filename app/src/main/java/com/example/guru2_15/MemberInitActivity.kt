@@ -59,7 +59,15 @@ class MemberInitActivity : AppCompatActivity(), View.OnClickListener {
             var friend = Friend(name, nickname)
             firestore?.collection("userInfo")?.document(auth!!.currentUser!!.uid)?.set(friend)
             Toast.makeText(this, "저장완료", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, MainActivity::class.java))
+            var getUID : String ?= ""
+            if (intent.hasExtra("UID")) {
+                getUID = intent.getStringExtra("UID").toString()
+            }
+            val intent2 = Intent(this, MyScheFirst::class.java)
+            intent2.putExtra("UID",getUID)
+            startActivity(intent2)
+
+            // startActivity(Intent(this, MyScheDay::class.java))
         } else {
             startToast("회원정보를 입력해주세요.")
         }

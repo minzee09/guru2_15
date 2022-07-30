@@ -1,6 +1,7 @@
 package com.example.guru2_15
 
 import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -15,6 +16,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
+    lateinit var dbManager: DBManager
+    lateinit var sqlitedb : SQLiteDatabase
+
     private var mAuth: FirebaseAuth? = null
     private var mDatabaseRef: DatabaseReference? = null //실시간데베
     var db: FirebaseFirestore? = null
@@ -22,6 +26,8 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup) //회원가입
+
+        dbManager = DBManager(this, "userInfo", null, 1)
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -67,6 +73,15 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                             //setValue : database에 insert하기
                             mDatabaseRef!!.child("UserAccount").child(user.uid).setValue(account)
 
+                            sqlitedb = dbManager.writableDatabase //회원이메일,ㅠㅏ이어베이스uid저장데이터베이스
+                            sqlitedb.execSQL("INSERT INTO userInfo VALUES ('"+ account.email+ "', '" + account.idToken + "');")
+                            sqlitedb.close()
+
+                            val intent = Intent(this, MemberInitActivity::class.java)
+                            intent.putExtra("UID",account.idToken)
+                            startActivity(intent)
+
+                          //  startActivity(Intent(this,MemberInitActivity::class.java))
                             profileUpdate()
                             startActivity(Intent(this, MainActivity::class.java))
                         } else {

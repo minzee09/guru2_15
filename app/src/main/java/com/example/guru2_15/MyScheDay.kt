@@ -4,16 +4,15 @@ import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -39,14 +38,19 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
     lateinit var dbManager: DBManager
     lateinit var sqlitedb : SQLiteDatabase
 
+    lateinit var getUID:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_sche_day)
 
-        if (intent.hasExtra("date")) {
+        if (intent.hasExtra("date")) { //일정 등록한 날짜 정보 가져오기
             date = intent.getStringExtra("date").toString()
         }
+        if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
+            getUID = intent.getStringExtra("UID").toString()
+        }
+
 
         monthBtn = findViewById(R.id.monthBtn)
         weekBtn = findViewById(R.id.weekBtn)
@@ -79,7 +83,8 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
         var sSMinute:String? = null
 
         var cursor : Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE sName = '" + date +"';",null)
+        //cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '" + getUID +"';",null)
+        cursor = sqlitedb.rawQuery("SELECT UID, Sdate FROM schedule WHERE UID = '"+getUID+"'",null)
         while (cursor.moveToNext()){
             sName = cursor.getString(cursor.getColumnIndexOrThrow("Sname")).toString()
             sShour = cursor.getString(cursor.getColumnIndexOrThrow("SShour")).toString()
@@ -101,6 +106,8 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
         navigationView = findViewById(R.id.navigationView)
         navigationView.setNavigationItemSelectedListener(this)
 
+        sqlitedb.close()
+        dbManager.close()
     }
 
 

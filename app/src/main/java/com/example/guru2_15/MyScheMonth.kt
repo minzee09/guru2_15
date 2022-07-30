@@ -33,6 +33,7 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
 
     lateinit var dbManager: DBManager
     lateinit var sqlitedb : SQLiteDatabase
+    lateinit var getUID:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +67,10 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
         dbManager = DBManager(this, "schedule", null, 1)
         sqlitedb = dbManager.readableDatabase
 
+        if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
+            getUID = intent.getStringExtra("UID").toString()
+        }
+
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             val dialog = scheDialog(this)
             dialog.showDialog()
@@ -75,7 +80,7 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
                     var info = dialog.findViewById<TextView>(R.id.infoTv)
                     var date = "${year}년 ${month}월 ${dayOfMonth}일"
                     var cursor : Cursor
-                    cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE name = '"+date+"';",null)
+                    cursor = sqlitedb.rawQuery("SELECT UID,Sdate FROM schedule WHERE UID = '"+getUID+"', Sdate = '"+date+"'",null)
                     if(cursor==null){
                         info.text="일정 없음"
                     }

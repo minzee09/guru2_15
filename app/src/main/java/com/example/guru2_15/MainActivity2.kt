@@ -12,7 +12,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.*
 import androidx.annotation.ColorInt
-import com.example.guru2_15.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -42,15 +41,15 @@ class MainActivity2 : AppCompatActivity() {
     private var mAuth: FirebaseAuth? = null
     private var mDatabaseRef : DatabaseReference? = null //
 
-
-    lateinit var binding : ActivityMainBinding
+    lateinit var getUID:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
+        if (intent.hasExtra("UID")) { //로그인되어있는사용자UID
+            getUID = intent.getStringExtra("UID").toString()
+        }
 
         dbManager = DBManager(this, "schedule", null, 1)
 
@@ -146,28 +145,16 @@ class MainActivity2 : AppCompatActivity() {
             var str_smemo: String = EdtMemo.text.toString()
 
 
-            /*
-               val dataMap: MutableMap<String, Any> = mutableMapOf("scheName" to str_sname, "sColor" to str_color,"sDate" to str_date,
-                                                                       "sHour" to str_startHour, "sMin" to str_startMinute)
-               mAuth = FirebaseAuth.getInstance();
-               mDatabaseRef = FirebaseDatabase.getInstance().getReference("guru2_15")
-               var firebaseUser : FirebaseUser? = null
-               firebaseUser = mAuth!!.currentUser
-               var userUid = firebaseUser!!.uid
-               mDatabaseRef!!.child("UserAccount").child(firebaseUser!!.uid).updateChildren(dataMap)
-              // mDatabaseRef!!.child("UserAccount").child(firebaseUser!!.uid).updateChildren(["sName":str_sname])
-             //  var account = UserAccount("","","")
-             //  mDatabaseRef!!.child("UserAccount").child(firebaseUser!!.uid).set(account)*/
-
-
             sqlitedb = dbManager.writableDatabase
             sqlitedb.execSQL("INSERT INTO schedule VALUES ('" + str_sname + "' , '" + str_color + "', '"
                     + str_date + "', '"+ str_startHour + "' ,'" + str_startMinute + "', '"
-                    + str_endHour + "' , '" + str_endMinute + "', '"+ str_splce+ "', '" + str_smemo + "');")
+                    + str_endHour + "' , '" + str_endMinute + "', '"+ str_splce+ "', '" + str_smemo + "', '" + getUID + "');")
             sqlitedb.close()
+            dbManager.close()
 
             val intent = Intent(this, MyScheDay::class.java)
             intent.putExtra("date",str_date)
+            intent.putExtra("UID",getUID)
             Toast.makeText(applicationContext, "입력됨", Toast.LENGTH_SHORT).show()
             startActivity(intent)
         }
