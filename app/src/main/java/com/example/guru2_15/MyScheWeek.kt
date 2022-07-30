@@ -68,7 +68,7 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener {
         var sSMinute:String? = null
 
         var cursor : Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE sDate = '"+date+"';",null)
+        cursor = sqlitedb.rawQuery("SELECT UID,Sdate FROM schedule WHERE UID = '"+getUID+"', Sdate = '"+date+"'",null)
         while (cursor.moveToNext()){
             sName = cursor.getString(cursor.getColumnIndexOrThrow("Sname")).toString()
             sShour = cursor.getString(cursor.getColumnIndexOrThrow("SShour")).toString()
