@@ -5,6 +5,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
@@ -20,6 +21,7 @@ import com.github.mikephil.charting.data.PieEntry
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -112,6 +114,36 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
         var pieData = PieData(pieDataSet)
         pieChart.setData(pieData)
         pieChart.invalidate()
+
+        //화면에 사용자 이름 구현
+        val user = FirebaseAuth.getInstance().currentUser
+
+        //사용자 정보 가져오기
+        user?.let {
+
+            //text view 가져오기
+            var userNameTv: TextView = findViewById(R.id.userNameTv)
+            var name = user.uid //사용자 ID값
+
+            val db = FirebaseFirestore.getInstance()
+
+            //사용자 이름 화면 연결
+            db.collection("userInfo").document(name)// 작업할 컬렉션 및 다큐먼트
+                .get()
+                .addOnSuccessListener { document ->
+                    // 성공할 경우
+                    if (document != null) {
+                        name = (document["name"] as? String).toString()
+                        //텍스트뷰에 사용자 정보 구현
+                        userNameTv.text = name
+                        //naviName.text=name
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    // 실패할 경우
+                    Log.w("MyScheDay", "Error getting documents: $exception")
+                }
+        }
     }
 
 

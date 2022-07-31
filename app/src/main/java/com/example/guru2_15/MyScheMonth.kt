@@ -6,10 +6,12 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.CalendarView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -18,6 +20,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNavigationItemSelectedListener  {
@@ -98,6 +101,36 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
             }
             builder.setMessage("${sName} | 시간 = ${sShour}: ${sSMinute}")
             builder.show()
+        }
+
+        //화면에 사용자 이름 구현
+        val user = FirebaseAuth.getInstance().currentUser
+
+        //사용자 정보 가져오기
+        user?.let {
+
+            //text view 가져오기
+            var userNameTv: TextView = findViewById(R.id.userNameTv)
+            var name = user.uid //사용자 ID값
+
+            val db = FirebaseFirestore.getInstance()
+
+            //사용자 이름 화면 연결
+            db.collection("userInfo").document(name)// 작업할 컬렉션 및 다큐먼트
+                .get()
+                .addOnSuccessListener { document ->
+                    // 성공할 경우
+                    if (document != null) {
+                        name = (document["name"] as? String).toString()
+                        //텍스트뷰에 사용자 정보 구현
+                        userNameTv.text = name
+                        //naviName.text=name
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    // 실패할 경우
+                    Log.w("MyScheMonth", "Error getting documents: $exception")
+                }
         }
     }
     override fun onClick(view: View?){

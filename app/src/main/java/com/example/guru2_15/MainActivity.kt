@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             val db = FirebaseFirestore.getInstance()
 
-            //홈화면에 사용자 이름 화면 연결
+            //사용자 이름 화면 연결
             db.collection("userInfo").document(name)// 작업할 컬렉션 및 다큐먼트
                 .get()
                 .addOnSuccessListener { document ->
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 .addOnFailureListener { exception ->
                     // 실패할 경우
-                    Log.w("FriendListActivity", "Error getting documents: $exception")
+                    Log.w("MainActivity", "Error getting documents: $exception")
                 }
         }
 //        val logoutBtn: Button = findViewById(R.id.logoutButton)

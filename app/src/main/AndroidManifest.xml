@@ -40,7 +40,6 @@
         <activity android:name=".FriendAddActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".PasswordResetActivity" />
-        <activity android:name=".MemberInitActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".HomeActivity" />
         <activity
