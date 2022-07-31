@@ -24,7 +24,7 @@ class FriendPickAdapter(val friendList: ArrayList<Friend>) :
             view.setOnClickListener { //프로필 클릭시 이벤트
                 val curPos: Int = absoluteAdapterPosition //위치 갖고오기 (몇번째 프로필인지 확인)
                 val friend: Friend = friendList.get(curPos)
-                Toast.makeText(parent.context, "이름 :  ${friend.name}", Toast.LENGTH_SHORT)
+                Toast.makeText(parent.context, "${friend.name} 을 선택함", Toast.LENGTH_SHORT)
                     .show()
             }
         }
