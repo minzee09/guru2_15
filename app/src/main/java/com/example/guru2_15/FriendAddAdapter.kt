@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.widget.Filter.FilterResults
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.concurrent.ThreadLocalRandom
 
 class FriendAddAdapter(var friendList: ArrayList<Friend>, var con: Context) :
     RecyclerView.Adapter<FriendAddAdapter.ViewHolder>(), Filterable {
@@ -25,21 +26,22 @@ class FriendAddAdapter(var friendList: ArrayList<Friend>, var con: Context) :
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var name: TextView
         var email: TextView
+        lateinit var profile : ImageView
 
         init {
             name = itemView.findViewById(R.id.name_textView)
             email = itemView.findViewById(R.id.email_textView)
+            profile = itemView.findViewById(R.id.profileimageView)
 
             itemView.setOnClickListener {
                 AlertDialog.Builder(con).apply {
                     var position = absoluteAdapterPosition
                     var friend = filteredFriendList[position]
 
-                    setTitle("친구 추가")
                     setMessage(friend.name+" 친구 추가가 되었습니다.")
 
                     setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
-                        Toast.makeText(con, "OK Button Click", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(con, "OK Button Click", Toast.LENGTH_SHORT).show()
                     })
                     show()
                 }
@@ -68,6 +70,13 @@ class FriendAddAdapter(var friendList: ArrayList<Friend>, var con: Context) :
         val friend: Friend = filteredFriendList[position]
         holder.name.text = friend.name
         holder.email.text = friend.email
+        val random = ThreadLocalRandom.current().nextInt(1, 5)
+        when (random) {
+            1 -> holder.profile.setImageResource(R.drawable.profile)
+            2 -> holder.profile.setImageResource(R.drawable.profile1)
+            3 -> holder.profile.setImageResource(R.drawable.profile2)
+            4 -> holder.profile.setImageResource(R.drawable.profile3)
+        }
     }
 
     override fun getItemCount(): Int {

@@ -49,16 +49,17 @@
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
-                android:backgroundTint="@color/main3"
-                android:textColor="@color/white"
-                android:text="친구 목록" />
+                android:backgroundTint="@color/main2"
+                android:text="친구 목록"
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/friendAddButton"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:text="친구 추가" />
+                android:backgroundTint="@color/main3"
+                android:text="친구 추가"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <SearchView

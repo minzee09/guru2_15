@@ -9,17 +9,17 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import java.util.concurrent.ThreadLocalRandom
 
-class FriendAdapter(val friendList: ArrayList<Friend>) :
-    RecyclerView.Adapter<FriendAdapter.ViewHolder>() {
+class FriendPickAdapter(val friendList: ArrayList<Friend>) :
+    RecyclerView.Adapter<FriendPickAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
-    ): FriendAdapter.ViewHolder {
+    ): FriendPickAdapter.ViewHolder {
 
         var view =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.friend_list_item, parent, false)
+                .inflate(R.layout.friend_pick_item, parent, false)
         return ViewHolder(view).apply {
             view.setOnClickListener { //프로필 클릭시 이벤트
                 val curPos: Int = absoluteAdapterPosition //위치 갖고오기 (몇번째 프로필인지 확인)
@@ -30,9 +30,8 @@ class FriendAdapter(val friendList: ArrayList<Friend>) :
         }
     }
 
-    override fun onBindViewHolder(holder: FriendAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FriendPickAdapter.ViewHolder, position: Int) {
         holder.name.text = friendList[position].name
-        holder.email.text = friendList[position].email
         val random = ThreadLocalRandom.current().nextInt(1, 5)
         when (random) {
             1 -> holder.profile.setImageResource(R.drawable.profile)
@@ -52,7 +51,6 @@ class FriendAdapter(val friendList: ArrayList<Friend>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.name_textView)
-        val email: TextView = itemView.findViewById(R.id.email_textView)
         val profile: ImageView = itemView.findViewById(R.id.profileimageView)
     }
 
