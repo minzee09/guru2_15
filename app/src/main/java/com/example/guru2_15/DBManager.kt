@@ -15,8 +15,6 @@ class DBManager(
         db!!.execSQL("CREATE TABLE userInfo (UserEmail text,  UID text primary key );")
         db!!.execSQL("CREATE TABLE schedule ( Sname text, Scolor text, Sdate text, SShour text, SSminute text, " +
                 "SEhour text, SEminute text, Splace text, Smemo text, UID text, FOREIGN KEY(UID) REFERENCES userInfo(UID));");
-       // db!!.execSQL("CREATE TABLE userInfo ( UserEmail text, FOREIGN KEY("") );")
-      //  db!!.execSQL("CREATE TABLE userInfo (UserEmail text, UID text, FOREIGN KEY(UID) REFERENCES schedule(UID) )")
 
     }
 

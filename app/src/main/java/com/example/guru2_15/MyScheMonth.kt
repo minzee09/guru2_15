@@ -1,6 +1,5 @@
 package com.example.guru2_15
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
@@ -39,7 +38,6 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
     private var mAuth: FirebaseAuth? = null
 
     lateinit var getUID:String
-    lateinit var date: String
     var sName: String ?= "일정 없음"
     var sShour: String ?= "00"
     var sSMinute: String ?= "00"
@@ -78,9 +76,6 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
         mAuth = FirebaseAuth.getInstance();
         getUID = mAuth!!.currentUser?.uid.toString()
 
-        if (intent.hasExtra("date")) { //일정 등록한 날짜 정보 가져오기
-            date = intent.getStringExtra("date").toString()
-        }
 
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             var cursor: Cursor
@@ -140,12 +135,10 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
                 }
                 R.id.weekBtn -> {
                     var intent = Intent(this, MyScheWeek::class.java)
-                    intent.putExtra("date",date)
                     startActivity(intent)
                 }
                 R.id.dayBtn -> {
                     var intent = Intent(this, MyScheDay::class.java)
-                    intent.putExtra("date",date)
                     startActivity(intent)
                 }
                 R.id.addScheFab -> {

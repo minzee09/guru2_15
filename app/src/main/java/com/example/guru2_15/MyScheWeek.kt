@@ -44,7 +44,6 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener {
     private var mAuth: FirebaseAuth? = null
 
     lateinit var getUID:String
-    lateinit var date: String
     var sName : String? = "일정 없음!"
     var sShour:String? = "00"
     var sSMinute:String? = "00"
@@ -83,44 +82,41 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
         getUID = mAuth!!.currentUser?.uid.toString()
 
-        if (intent.hasExtra("date")) { //일정 등록한 날짜 정보 가져오기
-            date = intent.getStringExtra("date").toString()
-        }
 
         val cal = Calendar.getInstance()//오늘날짜가져와서
         setTexts(cal)
         day1Tv.text = "${month} / ${day}"
-        day1Edt.setText(""+sName+" 시간 = "+sShour+":"+sSMinute)
+        day1Edt.setText(""+sName+" | 시간 = "+sShour+":"+sSMinute)
         cal.add(Calendar.DATE,1) //다음날로이동
         resetTexts()
         setTexts(cal)
         day2Tv.text = "${month} / ${day}"
-        day2Edt.setText(""+sName+" 시간 = "+sShour+":"+sSMinute)
+        day2Edt.setText(""+sName+" | 시간 = "+sShour+":"+sSMinute)
         cal.add(Calendar.DATE,1) //다음날로이동
         resetTexts()
         setTexts(cal)
         day3Tv.text = "${month} / ${day}"
-        day3Edt.setText(""+sName+" 시간 = "+sShour+":"+sSMinute)
+        day3Edt.setText(""+sName+" | 시간 = "+sShour+":"+sSMinute)
         cal.add(Calendar.DATE,1) //다음날로이동
         resetTexts()
         setTexts(cal)
         day4Tv.text = "${month} / ${day}"
-        day4Edt.setText(""+sName+" 시간 = "+sShour+":"+sSMinute)
+        day4Edt.setText(""+sName+" | 시간 = "+sShour+":"+sSMinute)
         cal.add(Calendar.DATE,1) //다음날로이동
         resetTexts()
         setTexts(cal)
         day5Tv.text = "${month} / ${day}"
-        day5Edt.setText(""+sName+" 시간 = "+sShour+":"+sSMinute)
+        day5Edt.setText(""+sName+" | 시간 = "+sShour+":"+sSMinute)
         cal.add(Calendar.DATE,1) //다음날로이동
         resetTexts()
         setTexts(cal)
         day6Tv.text = "${month} / ${day}"
-        day6Edt.setText(""+sName+" 시간 = "+sShour+":"+sSMinute)
+        day6Edt.setText(""+sName+" | 시간 = "+sShour+":"+sSMinute)
         cal.add(Calendar.DATE,1) //다음날로이동
         resetTexts()
         setTexts(cal)
         day7Tv.text = "${month} / ${day}"
-        day7Edt.setText(""+sName+" 시간 = "+sShour+":"+sSMinute)
+        day7Edt.setText(""+sName+" | 시간 = "+sShour+":"+sSMinute)
 
         sqlitedb.close()
         dbManager.close()
@@ -178,21 +174,16 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener {
             when(view.id){
                 R.id.monthBtn -> {
                     var intent = Intent(this, MyScheMonth::class.java)
-                    intent.putExtra("date",date)
-                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
                 R.id.weekBtn -> {
                 }
                 R.id.dayBtn -> {
                     var intent = Intent(this, MyScheDay::class.java)
-                    intent.putExtra("date",date)
-                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
                 R.id.addScheFab -> {
                     var intent = Intent(this, MainActivity2::class.java)
-                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
             }

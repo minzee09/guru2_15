@@ -155,7 +155,6 @@ class MainActivity2 : AppCompatActivity() {
 
             val intent = Intent(this, MyScheDay::class.java)
             intent.putExtra("date",str_date)
-            intent.putExtra("UID",getUID)
             Toast.makeText(applicationContext, "입력됨 ${str_color}", Toast.LENGTH_SHORT).show()
             startActivity(intent)
         }

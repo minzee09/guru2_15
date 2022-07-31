@@ -22,6 +22,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -45,6 +47,9 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
     var sShour:String? = null
     var sSMinute:String? = null
     var scolor:String? = null
+    lateinit var year : String
+    lateinit var month: String
+    lateinit var day : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,10 +58,11 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
         mAuth = FirebaseAuth.getInstance();
         getUID = mAuth!!.currentUser?.uid.toString()
 
-        if (intent.hasExtra("date")) { //일정 등록한 날짜 정보 가져오기
-            date = intent.getStringExtra("date").toString()
-        }
-
+        val cal = Calendar.getInstance()//오늘날짜가져와서
+        year = cal.get(Calendar.YEAR).toString()
+        month = (cal.get(Calendar.MONTH) + 1).toString()
+        day = cal.get(Calendar.DATE).toString()
+        var date_ = "${year}년 ${month}월 ${day}일"
 
         monthBtn = findViewById(R.id.monthBtn)
         weekBtn = findViewById(R.id.weekBtn)
@@ -71,19 +77,17 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
 
         dbManager = DBManager(this, "schedule", null, 1)
         sqlitedb = dbManager.readableDatabase
-
         var cursor : Cursor
-        //cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '" + getUID +"';",null)
-        cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '"+getUID+"' AND Sdate = '"+date+"';",null)
+        cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '"+getUID+"' AND Sdate = '"+date_+"';",null)
         while(cursor.moveToNext()) {
             sName=cursor.getString(cursor.getColumnIndexOrThrow("Sname"))
             sShour=cursor.getString(cursor.getColumnIndexOrThrow("SShour"))
             sSMinute=cursor.getString(cursor.getColumnIndexOrThrow("SSminute"))
             scolor=cursor.getString(cursor.getColumnIndexOrThrow("Scolor"))
         }
-
-        scheInfoTv.text = date+"의 일정은 "+sName + " 시간 "+sShour+":"+sSMinute
-
+        scheInfoTv.text = date_ +"오늘 일정은 "+sName + " | 시간 = "+sShour+":"+sSMinute
+        //if(cursor==null){scheInfoTv.text = date_ +" 오늘 일정은 없습니다!" }
+        cursor.close()
 
         // 상단 툴바 설정
         val toolbar : Toolbar = findViewById(R.id.toolbar)
@@ -102,7 +106,7 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
         dbManager.close()
 
         pieChart = findViewById(R.id.chart)
-        var pieDataSet = PieDataSet(data1(),sName)
+        var pieDataSet = PieDataSet(data1(),"일정")
         var arrayColor = arrayListOf<Int>(Color.GREEN,Color.YELLOW)
         pieDataSet.setColors(arrayColor)
         pieChart.setEntryLabelTextSize(30.0f)
@@ -159,21 +163,16 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
             when(view.id){
                 R.id.monthBtn -> {
                     var intent = Intent(this, MyScheMonth::class.java)
-                    intent.putExtra("date",date)
-                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
                 R.id.weekBtn -> {
                     var intent = Intent(this, MyScheWeek::class.java)
-                    intent.putExtra("date",date)
-                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                 }
                 R.id.dayBtn -> {
                 }
                 R.id.addScheFab -> {
                     var intent = Intent(this, MainActivity2::class.java)
-                    intent.putExtra("UID",getUID)
                     startActivity(intent)
                }
             }
