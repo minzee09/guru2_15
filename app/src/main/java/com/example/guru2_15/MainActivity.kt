@@ -127,7 +127,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.home -> {
-                drawerLayout.closeDrawers()
+                val intent = Intent(this, MyScheDay::class.java)
+                startActivity(intent)
                 return true
             }
             R.id.make -> {
