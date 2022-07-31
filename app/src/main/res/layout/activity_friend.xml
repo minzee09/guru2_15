@@ -10,13 +10,12 @@
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginLeft="20dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="16dp"
         android:gravity="fill"
         android:text="친구"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:textColor="@color/main3"
+        android:textSize="18sp"
         tools:ignore="HardcodedText" />
 
     <LinearLayout

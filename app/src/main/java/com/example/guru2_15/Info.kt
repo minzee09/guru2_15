@@ -9,5 +9,4 @@ class Info : AppCompatActivity() {
         setContentView(R.layout.activity_info)
     }
 
-
 }

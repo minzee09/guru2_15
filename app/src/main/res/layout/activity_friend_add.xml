@@ -10,20 +10,20 @@
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginLeft="20dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="16dp"
         android:gravity="fill"
         android:text="친구"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:textColor="@color/main3"
+        android:textSize="18sp"
+        android:textStyle="normal"
         tools:ignore="HardcodedText" />
 
     <LinearLayout
         android:id="@+id/button_Layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="15dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -53,7 +53,8 @@
         android:iconifiedByDefault="false"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:queryHint="이름/이메일 검색하세요." />
+        android:queryHint="이름/이메일 검색하세요."
+        android:scrollbarSize="4dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friend_recycler_view"

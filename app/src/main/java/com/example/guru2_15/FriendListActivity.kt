@@ -65,9 +65,8 @@ class FriendListActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
-        //액티비티 전환 애니메이션 제가
         super.onPause()
-        overridePendingTransition(0, 0) //액티비티 전환 애니메이션 제가
+        overridePendingTransition(0, 0) //액티비티 전환 애니메이션 제거
 
     }
 }

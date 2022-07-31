@@ -199,4 +199,10 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        overridePendingTransition(0, 0) //액티비티 전환 애니메이션 제거
+
+    }
+
 }
