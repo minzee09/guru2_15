@@ -65,7 +65,6 @@
             android:layout_marginLeft="345dp"
             android:layout_marginTop="134dp"
             android:text="월"
-            android:textColor="@color/white"
             android:textSize="14sp"
             tools:ignore="TouchTargetSizeCheck" />
 

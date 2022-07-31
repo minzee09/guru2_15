@@ -4,15 +4,21 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.guru2_15.databinding.ActivityFriendBinding
+import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.toObject
 
 
-class FriendListActivity : AppCompatActivity() {
+class FriendListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     // 전역 변수로 바인딩 객체 선언
     private var mBinding: ActivityFriendBinding? = null
 
@@ -23,6 +29,8 @@ class FriendListActivity : AppCompatActivity() {
     private val friendAdapter = FriendAdapter(friendArrayList)
     private val db = FirebaseFirestore.getInstance()
 
+    lateinit var drawerLayout : DrawerLayout
+    lateinit var navigationView :NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +64,20 @@ class FriendListActivity : AppCompatActivity() {
         binding.friendAddButton.setOnClickListener {
             startActivity(Intent(this, FriendAddActivity::class.java))
         }
+
+        // 상단 툴바 설정
+        val toolbar : Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.navi_menu)
+
+        drawerLayout = findViewById(R.id.drawerLayout)
+
+        navigationView = findViewById(R.id.navigationView)
+        navigationView.setNavigationItemSelectedListener(this)
+
     }
 
     override fun onDestroy() {
@@ -68,5 +90,59 @@ class FriendListActivity : AppCompatActivity() {
         super.onPause()
         overridePendingTransition(0, 0) //액티비티 전환 애니메이션 제거
 
+    }
+
+    //로그인 액티비티로 이동
+    private fun startLoginActivity() {
+        startActivity(Intent(this, LoginActivity::class.java))
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item!!.itemId){
+            android.R.id.home -> {
+                drawerLayout.openDrawer(GravityCompat.START)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.home -> {
+                val intent = Intent(this, MyScheDay::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.make -> {
+                val intent = Intent(this, ExecuteActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.friend -> {
+                val intent = Intent(this, FriendListActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.app_info -> {
+                val intent = Intent(this, Info::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.app_logout -> {
+                FirebaseAuth.getInstance().signOut()
+                startLoginActivity()
+            }
+        }
+        return false
+    }
+
+    override fun onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawers()
+        }else{
+            super.onBackPressed()
+        }
     }
 }

@@ -4,16 +4,25 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.core.view.get
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import org.w3c.dom.Text
 import java.util.*
 
-class ExecuteActivity : AppCompatActivity() {
+class ExecuteActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
+
+    lateinit var drawerLayout : DrawerLayout
+    lateinit var navigationView :NavigationView
 
     var selectYear : Int = 0
     var selectMonth : Int = 0
@@ -137,5 +146,73 @@ class ExecuteActivity : AppCompatActivity() {
                 // 실패할 경우
                 Log.w("FriendListActivity", "Error getting documents: $exception")
             }
+
+        // 상단 툴바 설정
+        val toolbar : Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.navi_menu)
+
+        drawerLayout = findViewById(R.id.drawerLayout)
+
+        navigationView = findViewById(R.id.navigationView)
+        navigationView.setNavigationItemSelectedListener(this)
+
     }
+
+    //로그인 액티비티로 이동
+    private fun startLoginActivity() {
+        startActivity(Intent(this, LoginActivity::class.java))
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item!!.itemId){
+            android.R.id.home -> {
+                drawerLayout.openDrawer(GravityCompat.START)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.home -> {
+                drawerLayout.closeDrawers()
+                return true
+            }
+            R.id.make -> {
+                val intent = Intent(this, ExecuteActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.friend -> {
+                val intent = Intent(this, FriendListActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.app_info -> {
+                val intent = Intent(this, Info::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.app_logout -> {
+                FirebaseAuth.getInstance().signOut()
+                startLoginActivity()
+            }
+        }
+        return false
+    }
+
+    override fun onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawers()
+        }else{
+            super.onBackPressed()
+        }
+    }
+
 }
