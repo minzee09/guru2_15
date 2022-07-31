@@ -48,7 +48,7 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_sche_month)
 
-        // 상단 툴바 설정ㅁ
+        // 상단 툴바 설정
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 

@@ -15,14 +15,14 @@
         android:layout_height="match_parent"
         android:background="#fff">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main3"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:contentInsetStart="0dp"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main3"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentInsetStart="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
         <TextView
             android:id="@+id/naviNameTextView"
@@ -42,10 +42,10 @@
             android:layout_marginTop="100dp"
             android:layout_weight="1"
             android:backgroundTint="@color/main3"
+            android:src="@drawable/profile"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/naviNameTextView"
-            tools:srcCompat="@tools:sample/avatars"
-            android:src="@drawable/profile"/>
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/userNameTv"
@@ -62,7 +62,7 @@
             android:id="@+id/monthBtn"
             android:layout_width="45dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="305dp"
+            android:layout_marginLeft="345dp"
             android:layout_marginTop="134dp"
             android:backgroundTint="@color/main3"
             android:text="월"
@@ -74,7 +74,7 @@
             android:id="@+id/weekBtn"
             android:layout_width="45dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="255dp"
+            android:layout_marginLeft="295dp"
             android:layout_marginTop="134dp"
             android:text="주"
             android:textSize="14sp"
@@ -86,7 +86,7 @@
             android:id="@+id/dayBtn"
             android:layout_width="45dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="205dp"
+            android:layout_marginLeft="245dp"
             android:layout_marginTop="134dp"
             android:text="일"
             android:textSize="14sp"
@@ -98,8 +98,8 @@
             android:id="@+id/addScheFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="280dp"
-            android:layout_marginTop="460dp"
+            android:layout_marginLeft="320dp"
+            android:layout_marginTop="520dp"
             android:clickable="true"
             app:backgroundTint="@color/main3"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -112,9 +112,8 @@
             android:id="@+id/calendarView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="180dp"
-            android:layout_marginEnd="1dp"
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
