@@ -171,24 +171,25 @@ class MainActivity2 : AppCompatActivity() {
 
     }
 
+    //스케줄 업로드하기
     fun scheUpdate(){
-        var schename : String = EdtSchedulName.text.toString()
-        var schecolor : String = Colorr.background.toString()
-        var schedate: String = BtnDate.text.toString()
-        var scheshour : String = SpinnerStartHour.selectedItem.toString()
-        var schesminute : String = SpinnerStartMinute.selectedItem.toString()
-        var scheehour : String = SpinnerEndHour.selectedItem.toString()
-        var scheemiute: String = SpinnerEndMinute.selectedItem.toString()
-        var scheplace: String = EdtPlace.text.toString()
-        var schememo: String = EdtMemo.text.toString()
+        var schename : String = EdtSchedulName.text.toString()  // 일정이름
+        var schecolor : String = Colorr.background.toString()  // 일정 색
+        var schedate: String = BtnDate.text.toString()  //일정 날짜
+        var scheshour : String = SpinnerStartHour.selectedItem.toString()  //일정 시작 시
+        var schesminute : String = SpinnerStartMinute.selectedItem.toString()  //일정 시작 분
+        var scheehour : String = SpinnerEndHour.selectedItem.toString()  //일정 끝나는 시
+        var scheemiute: String = SpinnerEndMinute.selectedItem.toString()  //일정 끝나느 분
+        var scheplace: String = EdtPlace.text.toString()  //일정 장소
+        var schememo: String = EdtMemo.text.toString()  //일정 메모
 
         if(schename.length > 0 && schedate.toString() != "날짜 선택"){
             user = FirebaseAuth.getInstance().getCurrentUser()
             val scheInfo : ScheInfo = ScheInfo(schename, schecolor, schedate,
                 scheshour, schesminute, scheehour, scheemiute, scheplace, schememo, getUID)
 
-            uploader(scheInfo);
-        }else{
+            uploader(scheInfo);  //스케줄 업로드
+        }else{  //일정 이름 또는 날짜가 입력되지 않으면 메세지 출력
             Toast.makeText(applicationContext, "일정이름 또는 날짜가 입력되지 않았습니다.", Toast.LENGTH_SHORT).show()
         }
     }
