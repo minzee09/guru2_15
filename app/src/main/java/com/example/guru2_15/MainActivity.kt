@@ -92,31 +92,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     Log.w("MainActivity", "Error getting documents: $exception")
                 }
         }
-//        val logoutBtn: Button = findViewById(R.id.logoutButton)
-//        val friendBtn: Button = findViewById(R.id.gotoFriendButton)
-
-        //logoutBtn.setOnClickListener(this)
-        //friendBtn.setOnClickListener(this)
     }
-
-    //클릭 이벤트 재정의
-//    override fun onClick(view: View?) {
-//        if (view != null) {
-//            when (view.id) {
-//                R.id.logoutButton -> {
-//                    FirebaseAuth.getInstance().signOut()
-//                    startLoginActivity()
-//                }
-//                R.id.gotoFriendButton -> startActivity(Intent(this, FriendListActivity::class.java))
-//            }
-//        }
-//    }
 
     //로그인 액티비티로 이동
     private fun startLoginActivity() {
         startActivity(Intent(this, LoginActivity::class.java))
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 

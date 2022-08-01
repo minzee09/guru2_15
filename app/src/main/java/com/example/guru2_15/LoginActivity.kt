@@ -17,10 +17,9 @@ import com.google.firebase.database.FirebaseDatabase
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     lateinit var dbManager: DBManager
-    lateinit var sqlitedb : SQLiteDatabase
+    lateinit var sqlitedb: SQLiteDatabase
 
     private var mAuth: FirebaseAuth? = null
-   // private var mDatabaseRef : DatabaseReference? = null //실시간데베
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +29,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-      //  mDatabaseRef = FirebaseDatabase.getInstance().getReference()
 
         val loginBtn: Button = findViewById(R.id.loginButton)
         val goToSignUpBtn: Button = findViewById(R.id.gotoSignUpButton)
@@ -54,7 +52,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             when (view.id) {
                 R.id.loginButton -> login()
                 R.id.gotoSignUpButton -> startActivity(Intent(this, SignUpActivity::class.java))
-                R.id.gotoPasswordResetbutton -> startActivity(Intent(this, PasswordResetActivity::class.java))
+                R.id.gotoPasswordResetbutton -> startActivity(
+                    Intent(
+                        this,
+                        PasswordResetActivity::class.java
+                    )
+                )
             }
         }
     }
@@ -72,9 +75,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         // Sign in success, update UI with the signed-in user's information
                         startToast("로그인에 성공하였습니다.")
 
-                        sqlitedb = dbManager.writableDatabase //회원이메일,파이어베이스uid저장데이터베이스
-                        val user = mAuth!!.currentUser
-
+                        sqlitedb = dbManager.writableDatabase //회원이메일,파이어베이스 uid 저장 데이터베이스
                         sqlitedb.close()
 
                         val intent = Intent(this, MainActivity::class.java)
@@ -99,7 +100,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private fun StartMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         //뒤로 가기 방지
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) //실행할 activity가 이미 스택에 존재하면 해당 activity 위에 존재하는 다른 activity 모두 종료시킨다.
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) //실행할 activity가 이미 스택에 존재하면 해당 activity 위에 존재하는 다른 activity 모두 종료시킴
 
         startActivity(intent) //액티비티 전환 메소드
     }

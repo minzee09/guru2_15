@@ -51,6 +51,7 @@ class FriendPickAdapter(val friendList: ArrayList<Friend>) :
 
     override fun onBindViewHolder(holder: FriendPickAdapter.ViewHolder, position: Int) {
         holder.name.text = friendList[position].name
+        //랜덤함수를 사용하여 프로필 사진이 무작위하게 적용
         val random = ThreadLocalRandom.current().nextInt(1, 5)
         when (random) {
             1 -> holder.profile.setImageResource(R.drawable.profile)

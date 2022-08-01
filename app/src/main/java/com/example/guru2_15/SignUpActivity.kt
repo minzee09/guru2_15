@@ -20,7 +20,6 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var sqlitedb : SQLiteDatabase
 
     private var mAuth: FirebaseAuth? = null
-  //  private var mDatabaseRef: DatabaseReference? = null //실시간데베
     var db: FirebaseFirestore? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +30,6 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-  //      mDatabaseRef = FirebaseDatabase.getInstance().getReference("guru2_15")
         db = FirebaseFirestore.getInstance()
 
         val signUpBtn: Button = findViewById(R.id.signUpButton)
@@ -60,28 +58,15 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
         if (email.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty() && name.isNotEmpty()) {
             // 비번하고 비번 확인이 같을때 회원가입 실행
             if (password.equals(passwordCheck)) {
-                mAuth!!.createUserWithEmailAndPassword(email, password) //파이어베이스유저등록
+                mAuth!!.createUserWithEmailAndPassword(email, password) //파이어베이스 유저 등록
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) { //회원가입이 됐을 때
                             val user = mAuth!!.currentUser
-                           /* var account = UserAccount("", "", "", "")
-                            account.email = user?.email.toString()
-                            account.password = password
-                            account.idToken = user!!.uid
-                            account.name = name
 
-                            //setValue : database에 insert하기
-                            mDatabaseRef!!.child("UserAccount").child(user.uid).setValue(account)*/
-
-                            sqlitedb = dbManager.writableDatabase //회원이메일,ㅠㅏ이어베이스uid저장데이터베이스
+                            sqlitedb = dbManager.writableDatabase //회원이메일,파이어베이스 uid 저장 데이터베이스
                             sqlitedb.execSQL("INSERT INTO userInfo VALUES ('"+user?.email+ "', '" +user?.uid+ "');")
                             sqlitedb.close()
 
-                          /*  val intent = Intent(this, MemberInitActivity::class.java)
-                            intent.putExtra("UID",user?.uid)
-                            startActivity(intent)*/
-
-                          //  startActivity(Intent(this,MemberInitActivity::class.java))
                             profileUpdate()
                             startActivity(Intent(this, MainActivity::class.java))
                         } else {
@@ -103,6 +88,7 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
+    //사용자 정보 데이터베이스에 추가
     private fun profileUpdate() {
         var name: String = findViewById<EditText>(R.id.nameEditText).text.toString()
         var email: String = findViewById<EditText>(R.id.emailEditText).text.toString()

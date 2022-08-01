@@ -33,6 +33,7 @@ class FriendAddAdapter(var friendList: ArrayList<Friend>, var con: Context) :
             email = itemView.findViewById(R.id.email_textView)
             profile = itemView.findViewById(R.id.profileimageView)
 
+            //다이어로그 발생 이벤트
             itemView.setOnClickListener {
                 AlertDialog.Builder(con).apply {
                     var position = absoluteAdapterPosition
@@ -50,14 +51,12 @@ class FriendAddAdapter(var friendList: ArrayList<Friend>, var con: Context) :
     }
 
     init {
-        //profileUpdate()
         filteredFriendList.addAll(friendList)
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
     ): FriendAddAdapter.ViewHolder {
-        //db = FirebaseFirestore.getInstance()
         val con = parent.context
         val inflater = con.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate((R.layout.friend_add_item), parent, false)
@@ -70,6 +69,7 @@ class FriendAddAdapter(var friendList: ArrayList<Friend>, var con: Context) :
         val friend: Friend = filteredFriendList[position]
         holder.name.text = friend.name
         holder.email.text = friend.email
+        //랜덤함수를 사용하여 프로필 사진이 무작위하게 적용
         val random = ThreadLocalRandom.current().nextInt(1, 5)
         when (random) {
             1 -> holder.profile.setImageResource(R.drawable.profile)
@@ -116,6 +116,7 @@ class FriendAddAdapter(var friendList: ArrayList<Friend>, var con: Context) :
             return results
         }
 
+        //리사이클러뷰 갱신
         @SuppressLint("NotifyDataSetChanged")
         override fun publishResults(charSequence: CharSequence?, filterResults: FilterResults) {
             filteredFriendList.clear()

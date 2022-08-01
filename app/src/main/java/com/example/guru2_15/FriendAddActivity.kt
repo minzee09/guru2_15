@@ -26,16 +26,17 @@ class FriendAddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     // 전역 변수로 바인딩 객체 선언
     private var mBinding: ActivityFriendAddBinding? = null
+
     // 매번 null 체크를 할 필요 없이 편의성을 위해 바인딩 변수 재 선언
     private val binding get() = mBinding!!
 
-    var friendArrayList =arrayListOf<Friend>()
-    private var friendAddAdapter =FriendAddAdapter(friendArrayList,this)
+    var friendArrayList = arrayListOf<Friend>()
+    private var friendAddAdapter = FriendAddAdapter(friendArrayList, this)
 
     private val db = FirebaseFirestore.getInstance()
 
-    lateinit var drawerLayout : DrawerLayout
-    lateinit var navigationView :NavigationView
+    lateinit var drawerLayout: DrawerLayout
+    lateinit var navigationView: NavigationView
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +51,7 @@ class FriendAddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         binding.searchViewFriend.setOnQueryTextListener(searchViewTextListener)
 
+        //파이어베이스에 있는 사용자 정보를 가져와서 화면에 구현
         db.collection("userInfo")   // 작업할 컬렉션
             .get()      // 문서 가져오기
             .addOnSuccessListener { result ->
@@ -66,6 +68,7 @@ class FriendAddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 Log.w("FriendAddActivity", "Error getting documents: $exception")
             }
 
+        //액티비티 간 이동 함수 - 버튼 이벤트
         binding.friendListButton.setOnClickListener {
             startActivity(Intent(this, FriendListActivity::class.java))
         }
@@ -74,7 +77,7 @@ class FriendAddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
 
         // 상단 툴바 설정
-        val toolbar : Toolbar = findViewById(R.id.toolbar)
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -95,20 +98,14 @@ class FriendAddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         val user = FirebaseAuth.getInstance().currentUser
 
-        //현재 유저가 널값이라면 (로그인이 안되어있을 떄)
-        if (user == null) {
-            startLoginActivity()
-        }
         //사용자 정보 가져오기
         user?.let {
-
             var name = user.uid //사용자 ID값
-            //naviEmail.text=user.email //텍스트뷰에 사용자 정보 구현
             var email = user.email
 
             val db = FirebaseFirestore.getInstance()
 
-            //사용자 이름 화면 연결
+            //사용자 이름 화면과 연결
             db.collection("userInfo").document(name)// 작업할 컬렉션 및 다큐먼트
                 .get()
                 .addOnSuccessListener { document ->
@@ -116,8 +113,8 @@ class FriendAddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     if (document != null) {
                         name = (document["name"] as? String).toString()
                         //텍스트뷰에 사용자 정보 구현
-                        email =(document["email"]as? String).toString()
-                        naviName.text=name
+                        email = (document["email"] as? String).toString()
+                        naviName.text = name
                         naviEmail.text = email
                     }
                 }
@@ -128,9 +125,10 @@ class FriendAddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
 
     }
-    //SearchView 텍스트 입력시 이벤트
-    var searchViewTextListener: SearchView.OnQueryTextListener=
-        object :SearchView.OnQueryTextListener {
+
+    //SearchView 텍스트 입력시 발생 이벤트
+    var searchViewTextListener: SearchView.OnQueryTextListener =
+        object : SearchView.OnQueryTextListener {
             //검색버튼 입력시 호출, 검색버튼이 없으므로 사용하지 않음
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return false
@@ -165,7 +163,7 @@ class FriendAddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when(item!!.itemId){
+        when (item!!.itemId) {
             android.R.id.home -> {
                 drawerLayout.openDrawer(GravityCompat.START)
             }
@@ -174,7 +172,7 @@ class FriendAddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.home -> {
                 val intent = Intent(this, MyScheDay::class.java)
                 startActivity(intent)
@@ -204,9 +202,9 @@ class FriendAddActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     override fun onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawers()
-        }else{
+        } else {
             super.onBackPressed()
         }
     }

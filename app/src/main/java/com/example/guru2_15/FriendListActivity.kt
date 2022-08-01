@@ -88,15 +88,10 @@ class FriendListActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
 
         val user = FirebaseAuth.getInstance().currentUser
 
-        //현재 유저가 널값이라면 (로그인이 안되어있을 떄)
-        if (user == null) {
-            startLoginActivity()
-        }
         //사용자 정보 가져오기
         user?.let {
 
             var name = user.uid //사용자 ID값
-            //naviEmail.text=user.email //텍스트뷰에 사용자 정보 구현
             var email = user.email
 
             val db = FirebaseFirestore.getInstance()

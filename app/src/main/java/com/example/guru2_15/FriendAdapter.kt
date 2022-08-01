@@ -21,7 +21,7 @@ class FriendAdapter(val friendList: ArrayList<Friend>) :
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.friend_list_item, parent, false)
         return ViewHolder(view).apply {
-            view.setOnClickListener { //프로필 클릭시 이벤트
+            view.setOnClickListener { //프로필 클릭시 이벤트 발생 하는 기능
                 val curPos: Int = absoluteAdapterPosition //위치 갖고오기 (몇번째 프로필인지 확인)
                 val friend: Friend = friendList.get(curPos)
                 Toast.makeText(parent.context, "이름 :  ${friend.name}", Toast.LENGTH_SHORT)
@@ -33,6 +33,7 @@ class FriendAdapter(val friendList: ArrayList<Friend>) :
     override fun onBindViewHolder(holder: FriendAdapter.ViewHolder, position: Int) {
         holder.name.text = friendList[position].name
         holder.email.text = friendList[position].email
+        //랜덤함수를 사용하여 프로필 사진이 무작위하게 적용
         val random = ThreadLocalRandom.current().nextInt(1, 5)
         when (random) {
             1 -> holder.profile.setImageResource(R.drawable.profile)
