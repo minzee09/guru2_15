@@ -98,6 +98,8 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
             sName= "일정 없음"
             sShour= "00"
             sSMinute= "00"
+            sEhour= "00"
+            sEMinute= "00"
             cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '"+getUID+"' AND Sdate = '"+date_+"';",null)
             while(cursor.moveToNext()) {//커서로 로그인되어있는 유저의 스케줄 정보를 가져오기
                 sName=cursor.getString(cursor.getColumnIndexOrThrow("Sname"))

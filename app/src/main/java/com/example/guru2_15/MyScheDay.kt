@@ -92,6 +92,8 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
             sName=cursor.getString(cursor.getColumnIndexOrThrow("Sname"))
             sShour=cursor.getString(cursor.getColumnIndexOrThrow("SShour"))
             sSMinute=cursor.getString(cursor.getColumnIndexOrThrow("SSminute"))
+            sEhour=cursor.getString(cursor.getColumnIndexOrThrow("SEhour"))
+            sEMinute=cursor.getString(cursor.getColumnIndexOrThrow("SEminute"))
             scolor = cursor.getString(cursor.getColumnIndexOrThrow("Scolor"))
             sPlace = cursor.getString(cursor.getColumnIndexOrThrow("Splace"))
             sMemo = cursor.getString(cursor.getColumnIndexOrThrow("Smemo"))

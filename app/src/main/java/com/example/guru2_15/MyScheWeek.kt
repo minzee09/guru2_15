@@ -207,6 +207,8 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener, NavigationView.OnNa
         sName = "\uD83D\uDE45일정 없음"
         sShour = "00"
         sSMinute="00"
+        sEhour = "00"
+        sEMinute="00"
     }
     //월,주,일 단위일정확인 + 플로팅버튼의 화면이동
     override fun onClick(view: View?){
