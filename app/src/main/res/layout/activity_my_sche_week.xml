@@ -99,8 +99,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="280dp"
-            android:layout_marginTop="460dp"
             android:layout_marginEnd="45dp"
             android:layout_marginBottom="45dp"
             android:clickable="true"
@@ -126,11 +124,14 @@
                     android:id="@+id/day1Tv"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
-                    android:text="월" />
+                    android:text="월"
+                    android:textColor="#4E4E4E"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/day1Edt"
                     android:layout_height="wrap_content"
+                    android:textSize="15dp"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </TableRow>
 
@@ -140,11 +141,14 @@
                     android:id="@+id/day2Tv"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
-                    android:text="화" />
+                    android:text="화"
+                    android:textColor="#4E4E4E"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/day2Edt"
                     android:layout_height="wrap_content"
+                    android:textSize="15dp"
                     tools:ignore="SpeakableTextPresentCheck" />
             </TableRow>
 
@@ -154,11 +158,14 @@
                     android:id="@+id/day3Tv"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
-                    android:text="수" />
+                    android:text="수"
+                    android:textColor="#4E4E4E"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/day3Edt"
                     android:layout_height="wrap_content"
+                    android:textSize="15dp"
                     tools:ignore="SpeakableTextPresentCheck" />
             </TableRow>
 
@@ -168,11 +175,14 @@
                     android:id="@+id/day4Tv"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
-                    android:text="목" />
+                    android:text="목"
+                    android:textColor="#4E4E4E"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/day4Edt"
                     android:layout_height="wrap_content"
+                    android:textSize="15dp"
                     tools:ignore="SpeakableTextPresentCheck" />
             </TableRow>
 
@@ -182,11 +192,14 @@
                     android:id="@+id/day5Tv"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
-                    android:text="금" />
+                    android:text="금"
+                    android:textColor="#4E4E4E"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/day5Edt"
                     android:layout_height="wrap_content"
+                    android:textSize="15dp"
                     tools:ignore="SpeakableTextPresentCheck" />
             </TableRow>
 
@@ -196,11 +209,14 @@
                     android:id="@+id/day6Tv"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
-                    android:text="토" />
+                    android:text="토"
+                    android:textColor="#4E4E4E"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/day6Edt"
                     android:layout_height="wrap_content"
+                    android:textSize="15dp"
                     tools:ignore="SpeakableTextPresentCheck" />
             </TableRow>
 
@@ -210,11 +226,14 @@
                     android:id="@+id/day7Tv"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
-                    android:text="일" />
+                    android:text="일"
+                    android:textColor="#4E4E4E"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/day7Edt"
                     android:layout_height="wrap_content"
+                    android:textSize="15dp"
                     tools:ignore="SpeakableTextPresentCheck" />
             </TableRow>
 

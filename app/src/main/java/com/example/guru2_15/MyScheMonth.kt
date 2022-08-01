@@ -41,6 +41,8 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
     var sName: String ?= "일정 없음"
     var sShour: String ?= "00"
     var sSMinute: String ?= "00"
+    var sEhour: String ?= "00"
+    var sEMinute: String ?= "00"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,7 +92,7 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
             var date_ = "${year}년 ${month+1}월 ${dayOfMonth}일"
 
             var builder = AlertDialog.Builder(this)
-            builder.setTitle("일정!!")
+            builder.setTitle("일정")
             var v1 = layoutInflater.inflate(R.layout.activity_sche_dialog, null)
             builder.setView(v1)
             sName= "일정 없음"
@@ -101,8 +103,10 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
                 sName=cursor.getString(cursor.getColumnIndexOrThrow("Sname"))
                 sShour=cursor.getString(cursor.getColumnIndexOrThrow("SShour"))
                 sSMinute=cursor.getString(cursor.getColumnIndexOrThrow("SSminute"))
+                sEhour=cursor.getString(cursor.getColumnIndexOrThrow("SEhour"))
+                sEMinute=cursor.getString(cursor.getColumnIndexOrThrow("SEminute"))
             }
-            builder.setMessage("${sName} | 시간 = ${sShour}: ${sSMinute}")
+            builder.setMessage("✔  | ${sName} \n \uD83D\uDD52 | ${sShour}: ${sSMinute} ~ ${sEhour}: ${sEMinute}")
             builder.show()
         }
 

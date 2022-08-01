@@ -52,9 +52,11 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener, NavigationView.OnNa
     private var mAuth: FirebaseAuth? = null
 
     lateinit var getUID:String
-    var sName : String? = "일정 없음!"
+    var sName : String? = "\uD83D\uDE45일정 없음 "
     var sShour:String? = "00"
     var sSMinute:String? = "00"
+    var sEhour: String ?= "00"
+    var sEMinute: String ?= "00"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,37 +96,37 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener, NavigationView.OnNa
         val cal = Calendar.getInstance()//오늘날짜가져와서
         setTexts(cal)
         day1Tv.text = "${month} / ${day}"
-        day1Edt.setText(""+sName+" | 시간 = "+sShour+":"+sSMinute)
+        day1Edt.setText(""+sName+" | \uD83D\uDD52 = "+sShour+":"+sSMinute+" ~ "+sEhour+":"+sEMinute)
         cal.add(Calendar.DATE,1) //다음날로이동
         resetTexts()
         setTexts(cal)
         day2Tv.text = "${month} / ${day}"
-        day2Edt.setText(""+sName+" | 시간 = "+sShour+":"+sSMinute)
+        day2Edt.setText(""+sName+" | \uD83D\uDD52 = "+sShour+":"+sSMinute+" ~ "+sEhour+":"+sEMinute)
         cal.add(Calendar.DATE,1) //다음날로이동
         resetTexts()
         setTexts(cal)
         day3Tv.text = "${month} / ${day}"
-        day3Edt.setText(""+sName+" | 시간 = "+sShour+":"+sSMinute)
+        day3Edt.setText(""+sName+" | \uD83D\uDD52 = "+sShour+":"+sSMinute+" ~ "+sEhour+":"+sEMinute)
         cal.add(Calendar.DATE,1) //다음날로이동
         resetTexts()
         setTexts(cal)
         day4Tv.text = "${month} / ${day}"
-        day4Edt.setText(""+sName+" | 시간 = "+sShour+":"+sSMinute)
+        day4Edt.setText(""+sName+" | \uD83D\uDD52 = "+sShour+":"+sSMinute+" ~ "+sEhour+":"+sEMinute)
         cal.add(Calendar.DATE,1) //다음날로이동
         resetTexts()
         setTexts(cal)
         day5Tv.text = "${month} / ${day}"
-        day5Edt.setText(""+sName+" | 시간 = "+sShour+":"+sSMinute)
+        day5Edt.setText(""+sName+" | \uD83D\uDD52 = "+sShour+":"+sSMinute+" ~ "+sEhour+":"+sEMinute)
         cal.add(Calendar.DATE,1) //다음날로이동
         resetTexts()
         setTexts(cal)
         day6Tv.text = "${month} / ${day}"
-        day6Edt.setText(""+sName+" | 시간 = "+sShour+":"+sSMinute)
+        day6Edt.setText(""+sName+" | \uD83D\uDD52 = "+sShour+":"+sSMinute+" ~ "+sEhour+":"+sEMinute)
         cal.add(Calendar.DATE,1) //다음날로이동
         resetTexts()
         setTexts(cal)
         day7Tv.text = "${month} / ${day}"
-        day7Edt.setText(""+sName+" | 시간 = "+sShour+":"+sSMinute)
+        day7Edt.setText(""+sName+" | \uD83D\uDD52 = "+sShour+":"+sSMinute+" ~ "+sEhour+":"+sEMinute)
 
         sqlitedb.close()
         dbManager.close()
@@ -193,13 +195,15 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener, NavigationView.OnNa
         var cursor : Cursor
         cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '"+getUID+"' AND Sdate = '"+date_+"';",null)
         while(cursor.moveToNext()) {
-            sName=cursor.getString(cursor.getColumnIndexOrThrow("Sname"))
+            sName="\uD83D\uDE46"+cursor.getString(cursor.getColumnIndexOrThrow("Sname"))
             sShour=cursor.getString(cursor.getColumnIndexOrThrow("SShour"))
             sSMinute=cursor.getString(cursor.getColumnIndexOrThrow("SSminute"))
+            sEhour=cursor.getString(cursor.getColumnIndexOrThrow("SEhour"))
+            sEMinute=cursor.getString(cursor.getColumnIndexOrThrow("SEminute"))
         }
     }
     fun resetTexts(){
-        sName = "일정 없음!"
+        sName = "\uD83D\uDE45일정 없음"
         sShour = "00"
         sSMinute="00"
     }

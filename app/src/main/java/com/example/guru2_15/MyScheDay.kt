@@ -43,9 +43,12 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
 
     lateinit var getUID:String
     lateinit var date: String
-    var sName : String? = null
-    var sShour:String? = null
-    var sSMinute:String? = null
+    var sName : String? = "\uD83D\uDE45"
+    var sShour:String? = "00"
+    var sSMinute:String? = "00"
+    var sEhour: String ?= "00"
+    var sEMinute: String ?= "00"
+
     var scolor:String? = null
     lateinit var year : String
     lateinit var month: String
@@ -88,8 +91,8 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
             sSMinute=cursor.getString(cursor.getColumnIndexOrThrow("SSminute"))
             scolor=cursor.getString(cursor.getColumnIndexOrThrow("Scolor"))
         }
-        scheInfoTv.text = date_ +"오늘 일정은 "+sName + " | 시간 = "+sShour+":"+sSMinute
-        //if(cursor==null){scheInfoTv.text = date_ +" 오늘 일정은 없습니다!" }
+
+        scheInfoTv.text = "📌오늘은 "+ date_ +"\n"+"✔일정은 "+sName + "\n"+ "\uD83D\uDD52시간은 "+sShour+":"+sSMinute+" ~ "+sEhour+":"+sEMinute
         cursor.close()
 
         // 상단 툴바 설정
