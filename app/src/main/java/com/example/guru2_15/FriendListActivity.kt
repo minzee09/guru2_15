@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -37,6 +38,9 @@ class FriendListActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         mBinding = ActivityFriendBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        var naviName: TextView
+        var naviEmail: TextView
 
         binding.friendRecyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -78,6 +82,43 @@ class FriendListActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         navigationView = findViewById(R.id.navigationView)
         navigationView.setNavigationItemSelectedListener(this)
 
+        val headerView = navigationView.getHeaderView(0)
+        naviName = headerView.findViewById(R.id.naviNameTextView)
+        naviEmail = headerView.findViewById(R.id.naviEmailTextView)
+
+        val user = FirebaseAuth.getInstance().currentUser
+
+        //현재 유저가 널값이라면 (로그인이 안되어있을 떄)
+        if (user == null) {
+            startLoginActivity()
+        }
+        //사용자 정보 가져오기
+        user?.let {
+
+            var name = user.uid //사용자 ID값
+            //naviEmail.text=user.email //텍스트뷰에 사용자 정보 구현
+            var email = user.email
+
+            val db = FirebaseFirestore.getInstance()
+
+            //사용자 이름 화면 연결
+            db.collection("userInfo").document(name)// 작업할 컬렉션 및 다큐먼트
+                .get()
+                .addOnSuccessListener { document ->
+                    // 성공할 경우
+                    if (document != null) {
+                        name = (document["name"] as? String).toString()
+                        //텍스트뷰에 사용자 정보 구현
+                        email =(document["email"]as? String).toString()
+                        naviName.text=name
+                        naviEmail.text = email
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    // 실패할 경우
+                    Log.w("MainActivity", "Error getting documents: $exception")
+                }
+        }
     }
 
     override fun onDestroy() {
