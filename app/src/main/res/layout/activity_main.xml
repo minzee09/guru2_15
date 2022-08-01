@@ -41,10 +41,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="110dp"
             android:layout_weight="1"
+            android:src="@drawable/profile"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-            tools:srcCompat="@tools:sample/avatars"
-            android:src="@drawable/profile"/>
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/userNameTv"

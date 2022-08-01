@@ -1,6 +1,7 @@
 package com.example.guru2_15
 
 import android.app.DatePickerDialog
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
@@ -10,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.annotation.ColorInt
 import com.google.firebase.auth.FirebaseAuth
@@ -18,6 +21,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.MutableData
 import com.nvt.color.ColorPickerDialog
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 class MainActivity2 : AppCompatActivity() {
@@ -39,6 +43,9 @@ class MainActivity2 : AppCompatActivity() {
     lateinit var BtnInsert : Button  //일정 등록버튼
 
     private var mAuth: FirebaseAuth? = null
+    //유저
+    private var user: FirebaseUser?= null
+
 
     lateinit var getUID:String
 
@@ -134,6 +141,8 @@ class MainActivity2 : AppCompatActivity() {
 
         //입력한 일정 데이터베이스로 전달
         BtnInsert.setOnClickListener {
+            //일정 파이어베이스에 등록
+            scheUpdate()
 
             var str_sname : String = EdtSchedulName.text.toString()
             var str_color: String = Colorr.background.toString()
@@ -161,6 +170,41 @@ class MainActivity2 : AppCompatActivity() {
 
 
     }
+
+    fun scheUpdate(){
+        var schename : String = EdtSchedulName.text.toString()
+        var schecolor : String = Colorr.background.toString()
+        var schedate: String = BtnDate.text.toString()
+        var scheshour : String = SpinnerStartHour.selectedItem.toString()
+        var schesminute : String = SpinnerStartMinute.selectedItem.toString()
+        var scheehour : String = SpinnerEndHour.selectedItem.toString()
+        var scheemiute: String = SpinnerEndMinute.selectedItem.toString()
+        var scheplace: String = EdtPlace.text.toString()
+        var schememo: String = EdtMemo.text.toString()
+
+        if(schename.length > 0 && schedate.toString() != "날짜 선택"){
+            user = FirebaseAuth.getInstance().getCurrentUser()
+            val scheInfo : ScheInfo = ScheInfo(schename, schecolor, schedate,
+                scheshour, schesminute, scheehour, scheemiute, scheplace, schememo, getUID)
+
+            uploader(scheInfo);
+        }else{
+            Toast.makeText(applicationContext, "일정이름 또는 날짜가 입력되지 않았습니다.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun uploader(scheinfo: ScheInfo){
+        val db = FirebaseFirestore.getInstance()
+        db.collection("sche")
+            .add(scheinfo)
+            .addOnSuccessListener { documentReference ->
+                Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding document", e)
+            }
+    }
+
     inner class myDBHelper(context: Context) : SQLiteOpenHelper(context, "scheduleDB", null, 1){
         override fun onCreate(db: SQLiteDatabase?) {
             db!!.execSQL("CREATE TABLE schedule ( Sname text, Scolor text, Sdate text, SShour text, SSminute text, SEhour text, SEminute text, Splace text, Smemo text);")
