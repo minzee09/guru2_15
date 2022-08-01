@@ -86,7 +86,7 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
         mAuth = FirebaseAuth.getInstance();
         getUID = mAuth!!.currentUser?.uid.toString()
 
-
+        //캘린더 날짜를 누르면 실행되는 함수
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             var cursor: Cursor
             var date_ = "${year}년 ${month+1}월 ${dayOfMonth}일"
@@ -99,14 +99,15 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
             sShour= "00"
             sSMinute= "00"
             cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '"+getUID+"' AND Sdate = '"+date_+"';",null)
-            while(cursor.moveToNext()) {
+            while(cursor.moveToNext()) {//커서로 로그인되어있는 유저의 스케줄 정보를 가져오기
                 sName=cursor.getString(cursor.getColumnIndexOrThrow("Sname"))
                 sShour=cursor.getString(cursor.getColumnIndexOrThrow("SShour"))
                 sSMinute=cursor.getString(cursor.getColumnIndexOrThrow("SSminute"))
                 sEhour=cursor.getString(cursor.getColumnIndexOrThrow("SEhour"))
                 sEMinute=cursor.getString(cursor.getColumnIndexOrThrow("SEminute"))
             }
-            builder.setMessage("✔  | ${sName} \n \uD83D\uDD52 | ${sShour}: ${sSMinute} ~ ${sEhour}: ${sEMinute}")
+            cursor.close()
+            builder.setMessage("\uD83D\uDDC2  | ${sName} \n \uD83D\uDD52 | ${sShour}: ${sSMinute} ~ ${sEhour}: ${sEMinute}")
             builder.show()
         }
 
@@ -142,6 +143,7 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
                 }
         }
     }
+    //월,주,일 단위일정확인 + 플로팅버튼의 화면이동
     override fun onClick(view: View?){
         if(view!=null){
             when(view.id){

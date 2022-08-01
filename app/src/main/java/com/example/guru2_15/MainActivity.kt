@@ -32,9 +32,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         addScheBtn.setOnClickListener {
             var intent = Intent(this, MainActivity2::class.java)
-            intent.putExtra("UID", intent.getStringExtra("UID"))
             startActivity(intent)
-
         }
 
         //text view 가져오기

@@ -74,16 +74,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
                         sqlitedb = dbManager.writableDatabase //회원이메일,파이어베이스uid저장데이터베이스
                         val user = mAuth!!.currentUser
-                      //  var cursor : Cursor
-                       // cursor = sqlitedb.rawQuery("SELECT * FROM userInfo WHERE UserEmail = '" + email +"';",null)
-                        //var getUID = cursor.getString(1) //로그인한 유저의 UID 정보 가져오기
-                        var getUID = user?.uid
 
                         sqlitedb.close()
 
-                        //val intent = Intent(this, MyScheFirst::class.java)
                         val intent = Intent(this, MainActivity::class.java)
-                        intent.putExtra("UID",getUID)
                         startActivity(intent) //액티비티 전환 메소드
 
                         finish()

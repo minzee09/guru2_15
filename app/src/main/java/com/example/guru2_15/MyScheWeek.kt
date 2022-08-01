@@ -94,12 +94,12 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener, NavigationView.OnNa
 
 
         val cal = Calendar.getInstance()//오늘날짜가져와서
-        setTexts(cal)
-        day1Tv.text = "${month} / ${day}"
+        setTexts(cal) //해당 날짜의 일정 정보를 가져온담에
+        day1Tv.text = "${month} / ${day}" //화면에 반영시키고
         day1Edt.setText(""+sName+" | \uD83D\uDD52 = "+sShour+":"+sSMinute+" ~ "+sEhour+":"+sEMinute)
         cal.add(Calendar.DATE,1) //다음날로이동
-        resetTexts()
-        setTexts(cal)
+        resetTexts() //변수들을 초기화시켜줌(일정등록안되어있는날을위해)
+        setTexts(cal)//반복
         day2Tv.text = "${month} / ${day}"
         day2Edt.setText(""+sName+" | \uD83D\uDD52 = "+sShour+":"+sSMinute+" ~ "+sEhour+":"+sEMinute)
         cal.add(Calendar.DATE,1) //다음날로이동
@@ -194,19 +194,21 @@ class MyScheWeek : AppCompatActivity(),View.OnClickListener, NavigationView.OnNa
         var date_ = "${year}년 ${month}월 ${day}일"
         var cursor : Cursor
         cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '"+getUID+"' AND Sdate = '"+date_+"';",null)
-        while(cursor.moveToNext()) {
+        while(cursor.moveToNext()) { //커서로 로그인되어있는 유저의 스케줄 정보를 가져오기
             sName="\uD83D\uDE46"+cursor.getString(cursor.getColumnIndexOrThrow("Sname"))
             sShour=cursor.getString(cursor.getColumnIndexOrThrow("SShour"))
             sSMinute=cursor.getString(cursor.getColumnIndexOrThrow("SSminute"))
             sEhour=cursor.getString(cursor.getColumnIndexOrThrow("SEhour"))
             sEMinute=cursor.getString(cursor.getColumnIndexOrThrow("SEminute"))
         }
+        cursor.close()
     }
     fun resetTexts(){
         sName = "\uD83D\uDE45일정 없음"
         sShour = "00"
         sSMinute="00"
     }
+    //월,주,일 단위일정확인 + 플로팅버튼의 화면이동
     override fun onClick(view: View?){
         if(view!=null){
             when(view.id){

@@ -91,7 +91,7 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                         }
                     }
             } else {
-                startToast("비밍번호가 일치하지 않습니다.\n다시 입력해주세요.")
+                startToast("비밀번호가 일치하지 않습니다.\n다시 입력해주세요.")
             }
         } else {
             startToast("이메일 또는 비밀번호를 입력해주세요.")
@@ -109,7 +109,6 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
         //다 입력시(공백X) 실행
         if (name.isNotEmpty() && email.isNotEmpty()) {
-
             //데이터 추가
             var data = Friend(name, email)
             db?.collection("userInfo")?.document(mAuth!!.currentUser!!.uid)?.set(data)

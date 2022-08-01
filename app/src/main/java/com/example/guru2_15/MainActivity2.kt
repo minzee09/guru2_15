@@ -206,7 +206,7 @@ class MainActivity2 : AppCompatActivity() {
             }
     }
 
-    inner class myDBHelper(context: Context) : SQLiteOpenHelper(context, "scheduleDB", null, 1){
+   /* inner class myDBHelper(context: Context) : SQLiteOpenHelper(context, "scheduleDB", null, 1){
         override fun onCreate(db: SQLiteDatabase?) {
             db!!.execSQL("CREATE TABLE schedule ( Sname text, Scolor text, Sdate text, SShour text, SSminute text, SEhour text, SEminute text, Splace text, Smemo text);")
         }
@@ -214,5 +214,5 @@ class MainActivity2 : AppCompatActivity() {
         override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
             db!!.execSQL("DROP TABLE IF EXISTS groupTBL")
         }
-    }
+    }*/
 }

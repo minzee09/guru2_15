@@ -4,12 +4,14 @@ import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
+import android.graphics.Color.alpha
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -42,14 +44,15 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
     private var mAuth: FirebaseAuth? = null
 
     lateinit var getUID:String
-    lateinit var date: String
     var sName : String? = "\uD83D\uDE45"
     var sShour:String? = "00"
     var sSMinute:String? = "00"
     var sEhour: String ?= "00"
     var sEMinute: String ?= "00"
+    var sPlace:String ?=" "
+    var sMemo:String ?=""
 
-    var scolor:String? = null
+    var scolor: String?=""
     lateinit var year : String
     lateinit var month: String
     lateinit var day : String
@@ -64,7 +67,7 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
         mAuth = FirebaseAuth.getInstance();
         getUID = mAuth!!.currentUser?.uid.toString()
 
-        val cal = Calendar.getInstance()//오늘날짜가져와서
+        val cal = Calendar.getInstance()//오늘날짜가져와서 설정
         year = cal.get(Calendar.YEAR).toString()
         month = (cal.get(Calendar.MONTH) + 1).toString()
         day = cal.get(Calendar.DATE).toString()
@@ -83,16 +86,20 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
 
         dbManager = DBManager(this, "schedule", null, 1)
         sqlitedb = dbManager.readableDatabase
-        var cursor : Cursor
+        var cursor : Cursor //커서로 로그인되어있는 유저의 스케줄 정보를 가져오기
         cursor = sqlitedb.rawQuery("SELECT * FROM schedule WHERE UID = '"+getUID+"' AND Sdate = '"+date_+"';",null)
         while(cursor.moveToNext()) {
             sName=cursor.getString(cursor.getColumnIndexOrThrow("Sname"))
             sShour=cursor.getString(cursor.getColumnIndexOrThrow("SShour"))
             sSMinute=cursor.getString(cursor.getColumnIndexOrThrow("SSminute"))
-            scolor=cursor.getString(cursor.getColumnIndexOrThrow("Scolor"))
+            scolor = cursor.getString(cursor.getColumnIndexOrThrow("Scolor"))
+            sPlace = cursor.getString(cursor.getColumnIndexOrThrow("Splace"))
+            sMemo = cursor.getString(cursor.getColumnIndexOrThrow("Smemo"))
         }
 
-        scheInfoTv.text = "📌오늘은 "+ date_ +"\n"+"✔일정은 "+sName + "\n"+ "\uD83D\uDD52시간은 "+sShour+":"+sSMinute+" ~ "+sEhour+":"+sEMinute
+        scheInfoTv.text = "\uD83D\uDE0E 오늘 | "+ date_ +"\n\n"+"\uD83D\uDDC2 일정 | "+sName + "\n\n"+
+                "\uD83D\uDD52 시간 | "+sShour+":"+sSMinute+" ~ "+sEhour+":"+sEMinute+"\n\n"+"\uD83D\uDCCD 장소 | "+
+                sPlace+"\n\n"+"\uD83D\uDCDD 메모 | "+sMemo
         cursor.close()
 
         // 상단 툴바 설정
@@ -118,7 +125,7 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
 
         pieChart = findViewById(R.id.chart)
         var pieDataSet = PieDataSet(data1(),"일정")
-        var arrayColor = arrayListOf<Int>(Color.GREEN,Color.YELLOW)
+        var arrayColor = arrayListOf<Int>(R.color.main1,R.color.main3)
         pieDataSet.setColors(arrayColor)
         pieChart.setEntryLabelTextSize(30.0f)
         pieChart.setDrawEntryLabels(true) //차트에글자표시여부
@@ -172,6 +179,7 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
 
         return datavalue
     }
+    //월,주,일 단위일정확인 + 플로팅버튼의 화면이동
     override fun onClick(view: View?){
         if(view!=null){
             when(view.id){
