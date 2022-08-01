@@ -7,15 +7,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.concurrent.ThreadLocalRandom
 
 class FriendPickAdapter(val friendList: ArrayList<Friend>) :
     RecyclerView.Adapter<FriendPickAdapter.ViewHolder>() {
 
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
     ): FriendPickAdapter.ViewHolder {
+
+        val friendSchedule = arrayListOf<Schedule>()
 
         var view =
             LayoutInflater.from(parent.context)
@@ -26,6 +30,21 @@ class FriendPickAdapter(val friendList: ArrayList<Friend>) :
                 val friend: Friend = friendList.get(curPos)
                 Toast.makeText(parent.context, "${friend.name} 을 선택함", Toast.LENGTH_SHORT)
                     .show()
+
+                db.collection("sche")
+                    .get()
+                    .addOnSuccessListener { move ->
+                        for(document in move){
+                            val item = Schedule(document["schecolor"] as String, document["schedate"] as String,
+                                document["scheehour"] as String, document["scheeminute"] as String, document["schememo"] as String,
+                                document["schename"] as String, document["scheplace"]as String, document["scheshour"] as String,
+                                document["schesminute"] as String, document["scheuser"] as String)
+
+                            friendSchedule.add(item)
+                        }
+
+                    }
+
             }
         }
     }
