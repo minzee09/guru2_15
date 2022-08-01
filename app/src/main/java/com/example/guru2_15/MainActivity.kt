@@ -13,6 +13,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.core.view.View
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -38,8 +39,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         //text view 가져오기
         var userNameTv: TextView = findViewById(R.id.userNameTv)
-        //var naviName: TextView = findViewById<TextView?>(R.id.navigationView).findViewById(R.id.naviNameTextView)
-        //var naviEmail: TextView = findViewById(R.id.naviEmailTextView)
+        var naviName: TextView
+        var naviEmail: TextView
 
 
         // 상단 툴바 설정
@@ -55,7 +56,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView = findViewById(R.id.navigationView)
         navigationView.setNavigationItemSelectedListener(this)
 
-
+        val headerView = navigationView.getHeaderView(0)
+        naviName = headerView.findViewById(R.id.naviNameTextView)
+        naviEmail = headerView.findViewById(R.id.naviEmailTextView)
 
         val user = FirebaseAuth.getInstance().currentUser
 
@@ -68,6 +71,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             var name = user.uid //사용자 ID값
             //naviEmail.text=user.email //텍스트뷰에 사용자 정보 구현
+            var email = user.email
 
             val db = FirebaseFirestore.getInstance()
 
@@ -79,8 +83,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     if (document != null) {
                         name = (document["name"] as? String).toString()
                         //텍스트뷰에 사용자 정보 구현
+                        email =(document["email"]as? String).toString()
                         userNameTv.text = name
-                        //naviName.text=name
+                        naviName.text=name
+                        naviEmail.text = email
                     }
                 }
                 .addOnFailureListener { exception ->

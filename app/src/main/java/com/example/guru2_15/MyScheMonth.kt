@@ -42,6 +42,7 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
     var sShour: String ?= "00"
     var sSMinute: String ?= "00"
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_sche_month)
@@ -58,6 +59,13 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
 
         navigationView = findViewById(R.id.navigationView)
         navigationView.setNavigationItemSelectedListener(this)
+
+        var naviName: TextView
+        var naviEmail: TextView
+
+        val headerView = navigationView.getHeaderView(0)
+        naviName = headerView.findViewById(R.id.naviNameTextView)
+        naviEmail = headerView.findViewById(R.id.naviEmailTextView)
 
         // UI값 생성
         calendarView = findViewById(R.id.calendarView)
@@ -107,6 +115,7 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
             //text view 가져오기
             var userNameTv: TextView = findViewById(R.id.userNameTv)
             var name = user.uid //사용자 ID값
+            var email = user.email
 
             val db = FirebaseFirestore.getInstance()
 
@@ -119,7 +128,8 @@ class MyScheMonth : AppCompatActivity(),View.OnClickListener,NavigationView.OnNa
                         name = (document["name"] as? String).toString()
                         //텍스트뷰에 사용자 정보 구현
                         userNameTv.text = name
-                        //naviName.text=name
+                        naviName.text=name
+                        naviEmail.text = email
                     }
                 }
                 .addOnFailureListener { exception ->

@@ -55,6 +55,9 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_sche_day)
 
+        var naviName: TextView
+        var naviEmail: TextView
+
         mAuth = FirebaseAuth.getInstance();
         getUID = mAuth!!.currentUser?.uid.toString()
 
@@ -102,6 +105,11 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
         navigationView = findViewById(R.id.navigationView)
         navigationView.setNavigationItemSelectedListener(this)
 
+        val headerView = navigationView.getHeaderView(0)
+        naviName = headerView.findViewById(R.id.naviNameTextView)
+        naviEmail = headerView.findViewById(R.id.naviEmailTextView)
+
+
         sqlitedb.close()
         dbManager.close()
 
@@ -128,6 +136,7 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
             //text view 가져오기
             var userNameTv: TextView = findViewById(R.id.userNameTv)
             var name = user.uid //사용자 ID값
+            var email = user.email
 
             val db = FirebaseFirestore.getInstance()
 
@@ -140,6 +149,8 @@ class MyScheDay : AppCompatActivity (),View.OnClickListener, NavigationView.OnNa
                         name = (document["name"] as? String).toString()
                         //텍스트뷰에 사용자 정보 구현
                         userNameTv.text = name
+                        naviName.text=name
+                        naviEmail.text = email
                         //naviName.text=name
                     }
                 }

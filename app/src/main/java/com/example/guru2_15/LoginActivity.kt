@@ -72,7 +72,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         // Sign in success, update UI with the signed-in user's information
                         startToast("로그인에 성공하였습니다.")
 
-                        sqlitedb = dbManager.writableDatabase //회원이메일,ㅠㅏ이어베이스uid저장데이터베이스
+                        sqlitedb = dbManager.writableDatabase //회원이메일,파이어베이스uid저장데이터베이스
                         val user = mAuth!!.currentUser
                       //  var cursor : Cursor
                        // cursor = sqlitedb.rawQuery("SELECT * FROM userInfo WHERE UserEmail = '" + email +"';",null)
