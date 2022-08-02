@@ -28,6 +28,8 @@ class ResultActivity : AppCompatActivity(){
         lateinit var fHour : TextView
         lateinit var fMinute : TextView
 
+        lateinit var name : TextView
+
         stYear = findViewById(R.id.stYear)
         stMon = findViewById(R.id.stMon)
         stDay = findViewById(R.id.stDay)
@@ -40,6 +42,11 @@ class ResultActivity : AppCompatActivity(){
         fHour = findViewById(R.id.fHour)
         fMinute = findViewById(R.id.fMinute)
 
+        name = findViewById(R.id.time_recommend)
+
+        val friendSchedule = arrayListOf<Schedule>()
+        val friendArrayList = arrayListOf<Friend>()
+        val friendAdapter = FriendPickAdapter(friendArrayList)
 
         stYear.setText(intent.getStringExtra("stYear"))
         stMon.setText(intent.getStringExtra("stMon"))
@@ -52,6 +59,8 @@ class ResultActivity : AppCompatActivity(){
         fDay.setText(intent.getStringExtra("fDay"))
         fHour.setText(intent.getStringExtra("fHour"))
         fMinute.setText(intent.getStringExtra("fMinute"))
+
+        name.setText(intent.getStringExtra("name"))
 
         btnRe = findViewById(R.id.btnRe)
 

@@ -1,5 +1,6 @@
 package com.example.guru2_15
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.concurrent.ThreadLocalRandom
 
@@ -15,11 +17,10 @@ class FriendPickAdapter(val friendList: ArrayList<Friend>) :
 
     private val db = FirebaseFirestore.getInstance()
 
+
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
     ): FriendPickAdapter.ViewHolder {
-
-        val friendSchedule = arrayListOf<Schedule>()
 
         var view =
             LayoutInflater.from(parent.context)
@@ -31,16 +32,17 @@ class FriendPickAdapter(val friendList: ArrayList<Friend>) :
                 Toast.makeText(parent.context, "${friend.name} 을 선택함", Toast.LENGTH_SHORT)
                     .show()
 
-                db.collection("sche")
+                db.collection("userInfo")
+                    .whereEqualTo("name",friend.name)
                     .get()
                     .addOnSuccessListener { move ->
                         for(document in move){
-                            val item = Schedule(document["schecolor"] as String, document["schedate"] as String,
-                                document["scheehour"] as String, document["scheeminute"] as String, document["schememo"] as String,
-                                document["schename"] as String, document["scheplace"]as String, document["scheshour"] as String,
-                                document["schesminute"] as String, document["scheuser"] as String)
+                            val item = Friend(document["name"] as String, document["email"] as String)
 
-                            friendSchedule.add(item)
+                            friendList.add(item)
+
+//                            val intent: Intent = Intent(this@FriendPickAdapter,ResultActivity::class.java)
+//                            intent.putExtra("email",friend.email)
                         }
 
                     }

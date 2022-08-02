@@ -94,6 +94,34 @@ class ExecuteActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             this.selectDay2 = i3
         }
 
+
+        val friendSchedule = arrayListOf<Schedule>()
+        val friendArrayList = arrayListOf<Friend>()
+        val friendAdapter = FriendPickAdapter(friendArrayList)
+        val db = FirebaseFirestore.getInstance()
+
+        var recycleView = findViewById<RecyclerView>(R.id.friendPick_RV)
+        recycleView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recycleView.adapter = friendAdapter
+
+        val name = FirebaseAuth.getInstance().uid
+
+        db.collection("userInfo")   // 작업할 컬렉션
+            .get()      // 문서 가져오기
+            .addOnSuccessListener { result ->
+                // 성공할 경우
+                friendArrayList.clear()
+                for (document in result) {  // 가져온 문서들은 result에 들어감
+                    val item = Friend(document["name"] as String, document["email"] as String)
+                    friendArrayList.add(item)
+                }
+                friendAdapter.notifyDataSetChanged()  // 리사이클러 뷰 갱신
+            }
+            .addOnFailureListener { exception ->
+                // 실패할 경우
+                Log.w("FriendListActivity", "Error getting documents: $exception")
+            }
+
         btnmake.setOnClickListener {
             if (selectYear == 0) {
                 Toast.makeText(this, "시작 날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
@@ -119,33 +147,11 @@ class ExecuteActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 //            Log.d("intentday", selectMonth.toString())
 //            Log.d("intentday", selectDay.toString())
 
+                intent.putExtra("name", name)
+
                 startActivity(intent)
             }
         }
-
-        val friendArrayList = arrayListOf<Friend>()
-        val friendAdapter = FriendPickAdapter(friendArrayList)
-        val db = FirebaseFirestore.getInstance()
-
-        var recycleView = findViewById<RecyclerView>(R.id.friendPick_RV)
-        recycleView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recycleView.adapter = friendAdapter
-
-        db.collection("userInfo")   // 작업할 컬렉션
-            .get()      // 문서 가져오기
-            .addOnSuccessListener { result ->
-                // 성공할 경우
-                friendArrayList.clear()
-                for (document in result) {  // 가져온 문서들은 result에 들어감
-                    val item = Friend(document["name"] as String, document["email"] as String)
-                    friendArrayList.add(item)
-                }
-                friendAdapter.notifyDataSetChanged()  // 리사이클러 뷰 갱신
-            }
-            .addOnFailureListener { exception ->
-                // 실패할 경우
-                Log.w("FriendListActivity", "Error getting documents: $exception")
-            }
 
         // 상단 툴바 설정
         val toolbar : Toolbar = findViewById(R.id.toolbar)
