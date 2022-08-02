@@ -3,15 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/drawable/cell_shape.xml" value="0.1" />
         <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_execute.xml" value="0.264" />
         <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_friend.xml" value="0.264" />
         <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_friend_add.xml" value="0.1" />
         <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_main2.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_my_sche_day.xml" value="0.264" />
-        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_result.xml" value="0.12335359675785208" />
+        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/activity_result.xml" value="0.264" />
         <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/friend_pick_item.xml" value="0.12335359675785208" />
+        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/gridview.xml" value="0.1271393643031785" />
         <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/main_naviheader.xml" value="0.1" />
+        <entry key="..\:/Users/dbstn/guru2_15/app/src/main/res/layout/result_schedule.xml" value="0.264" />
         <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_execute.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_friend.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/pc/AndroidStudioProjects/guru2_15/app/src/main/res/layout/activity_login.xml" value="0.25364583333333335" />

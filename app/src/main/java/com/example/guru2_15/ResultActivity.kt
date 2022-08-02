@@ -1,6 +1,8 @@
 package com.example.guru2_15
 
 import android.content.Intent
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -9,6 +11,18 @@ import androidx.appcompat.app.AppCompatActivity
 import org.w3c.dom.Text
 
 class ResultActivity : AppCompatActivity(){
+
+    private val friendArrayList = arrayListOf<Friend>()
+    private val friendAdapter = FriendAdapter(friendArrayList)
+    private val scheMon = BooleanArray(15)
+    private val scheTue = BooleanArray(15)
+    private val schewed = BooleanArray(15)
+    private val schethu = BooleanArray(15)
+    private val schesat = BooleanArray(15)
+    private val schesun = BooleanArray(15)
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
@@ -28,7 +42,10 @@ class ResultActivity : AppCompatActivity(){
         lateinit var fHour : TextView
         lateinit var fMinute : TextView
 
-        lateinit var name : TextView
+        lateinit var selectEmail : TextView
+
+        lateinit var dbManager: DBManager
+        lateinit var sqlitedb : SQLiteDatabase
 
         stYear = findViewById(R.id.stYear)
         stMon = findViewById(R.id.stMon)
@@ -42,11 +59,9 @@ class ResultActivity : AppCompatActivity(){
         fHour = findViewById(R.id.fHour)
         fMinute = findViewById(R.id.fMinute)
 
-        name = findViewById(R.id.time_recommend)
-
         val friendSchedule = arrayListOf<Schedule>()
         val friendArrayList = arrayListOf<Friend>()
-        val friendAdapter = FriendPickAdapter(friendArrayList)
+        val friendAdapter = FriendPickAdapter(friendArrayList, friendSchedule)
 
         stYear.setText(intent.getStringExtra("stYear"))
         stMon.setText(intent.getStringExtra("stMon"))
@@ -60,7 +75,10 @@ class ResultActivity : AppCompatActivity(){
         fHour.setText(intent.getStringExtra("fHour"))
         fMinute.setText(intent.getStringExtra("fMinute"))
 
-        name.setText(intent.getStringExtra("name"))
+        for(i in 0..14){
+            val scheMon = BooleanArray(15){i-> false}
+            scheMon.forEach { print("$it") }
+        }
 
         btnRe = findViewById(R.id.btnRe)
 

@@ -97,13 +97,14 @@ class ExecuteActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
         val friendSchedule = arrayListOf<Schedule>()
         val friendArrayList = arrayListOf<Friend>()
-        val friendAdapter = FriendPickAdapter(friendArrayList)
+        val friendAdapter = FriendPickAdapter(friendArrayList, friendSchedule)
         val db = FirebaseFirestore.getInstance()
 
         var recycleView = findViewById<RecyclerView>(R.id.friendPick_RV)
         recycleView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recycleView.adapter = friendAdapter
 
+        val scheuser = FirebaseAuth.getInstance().uid
         val name = FirebaseAuth.getInstance().uid
 
         db.collection("userInfo")   // 작업할 컬렉션
@@ -147,8 +148,7 @@ class ExecuteActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 //            Log.d("intentday", selectMonth.toString())
 //            Log.d("intentday", selectDay.toString())
 
-                intent.putExtra("name", name)
-
+                //intent.putExtra("name", friendSchedule.)
                 startActivity(intent)
             }
         }
